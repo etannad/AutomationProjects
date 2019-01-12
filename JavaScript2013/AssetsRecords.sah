@@ -1,0 +1,42 @@
+_include("AssetsRecords_Variable.sah");
+_include("TitleInfo_Variable_Movie.sah");
+_include("TitleInfoUpdate.sah")
+_include("Metadata_Variable.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+
+function verifyUploadImage()
+{
+	_stopOnError();
+		try
+		{		
+		
+		   //_click(_link("Test Upload Movie"));
+		   _click($lfsearchresult);
+		   _wait(1000);
+		 
+		 	if(!_exists(_div(9)))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($lasset);
+		
+			_assertExists(_image(1));
+			
+		}//end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+

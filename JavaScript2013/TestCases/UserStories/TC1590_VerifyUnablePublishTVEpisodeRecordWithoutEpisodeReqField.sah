@@ -1,0 +1,19 @@
+_include("../../MetadataCreate.sah");
+_include("../../Metadata_Variable.sah");
+_include("../../TitleInfo_Variable_Season.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Series.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+//when Series has all required field for published 
+
+login("cms2user15","Password");
+
+searchTitle("Carrie Diaries, The_: Season 1 Episode 1 - Pilot");
+
+publishContent("Carrie Diaries, The_");
+
+errorRec();

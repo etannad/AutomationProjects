@@ -1,0 +1,245 @@
+
+var $vpurchtype;
+var $definetype;
+var $vreleasetype;
+
+
+var $bupdateavail = _submit("Update Avails");
+var $linkavail = _link("Avails");
+
+//Movie
+var $bcreatedupem = (_italic("icon-plus[4]"));
+var $bremovedupem = (_italic("icon-minus[5]"));
+var $bremovethirdm = (_italic("icon-minus[6]"));
+var $bremovefourthm = (_italic("icon-minus[7]"));
+
+//TV Season
+var $bcreatedupetv = (_italic("icon-plus[5]"));
+//var $bremovedupetv = (_italic("icon-minus[10]"));
+//var $bremovethirdtv = (_italic("icon-minus[11]"));
+//var $bremovefourthtv = (_italic("icon-minus[12]"));
+
+
+function datePicker1b()
+{
+	if(_exists($divtvepisode)||_exists($divmovie))
+	{	
+		_click(_italic("icon-remove[1]"));
+		_click(_image("...[1]"));
+		_wait(1000);
+	
+		if(_exists($divtvepisode))
+		{
+			_setSelected(_select(9), "2012");
+			_wait(1000);
+			_click(_link("1"));
+		}
+		else
+		{
+			_setSelected(_select(10), "2012");
+			_wait(1000);
+			_click(_link("1"));
+		}
+	}
+	
+	if (_exists($divtvseason))
+	{
+			_click(_image("..."));
+			_wait(1000);
+			_setSelected(_select(9), "2012");
+			_wait(1000);
+			_click(_link("1"));
+	}	
+	
+	
+}
+
+function datePicker1e()
+{
+
+	if(_exists($divtvepisode)||_exists($divmovie))
+	{	
+		_click(_italic("icon-remove[2]"));
+		_click(_image("...[2]"));
+		_wait(1000);
+
+		if(_exists($divtvepisode))
+		{
+			_setSelected(_select(9), "2014");
+			_wait(1000);
+			_click(_link("1"));
+		}
+		else
+		{
+			_setSelected(_select(10), "2014");
+			_wait(1000);
+			_click(_link("1"));
+		}//end of else
+	}//end of  if
+		 
+	if(_exists($divtvseason))
+	{
+		_click(_image("...[1]"));
+		_wait(1000);	
+		_setSelected(_select(9), "2014");
+		_wait(1000);
+		_click(_link("1"));
+	}//end of else if	
+}
+
+
+function datePicker2b()
+{
+
+	if(_exists($divtvepisode)||_exists($divmovie))
+	{
+		_click(_italic("icon-remove[3]"));
+		_click(_image("...[3]"));
+		_wait(1000);
+	
+		if(_exists($divtvepisode))
+		{
+			_setSelected(_select(12), "2012");
+			_wait(1000);
+			_click(_link("1"));
+		}
+		
+		else
+		{	
+			_setSelected(_select(13), "2012");
+			_wait(1000);
+			_click(_link("1"));
+		}
+	}//end of if
+	
+	if(_exists($divtvseason))
+	{
+		_click(_image("...[2]"));
+		_wait(1000);	
+		_setSelected(_select(12), "2012");
+		_wait(1000);
+		_click(_link("1"));
+	}
+
+}
+
+function datePicker2e()
+{
+
+	if(_exists($divtvepisode)||_exists($divmovie))
+	{
+		_click(_italic("icon-remove[4]"));
+		_click(_image("...[4]"));
+		_wait(1000);
+		
+		if(_exists($divtvepisode))
+		{
+			_setSelected(_select(12), "2014");
+			_wait(1000);
+			_click(_link("1"));
+		}
+
+		else
+		{
+			_setSelected(_select(13), "2014");
+			_wait(1000);
+			_click(_link("1"));
+		}
+	}//end of if
+	
+	
+	if(_exists($divtvseason))
+	{
+		_click(_image("...[3]"));
+		_wait(1000);	
+		_setSelected(_select(12), "2014");
+		_wait(1000);
+		_click(_link("1"));
+	}
+
+}
+
+function datePicker3b()
+{
+
+	_click(_italic("icon-remove[1]"));
+	_click(_image("...[5]"));
+	_wait(1000);
+	_setSelected(_select(10), "2012");
+	_wait(1000);
+	_click(_link("1"));
+}
+
+function datePicker3e()
+{
+
+	_click(_italic("icon-remove[1]"));
+	_click(_image("...[6]"));
+	_wait(1000);
+	_setSelected(_select(10), "2014");
+	_wait(1000);
+	_click(_link("1"));
+}
+
+function datePicker4b()
+{
+
+	_click(_italic("icon-remove[1]"));
+	_click(_image("...[7]"));
+	_wait(1000);
+	_setSelected(_select(10), "2012");
+	_wait(1000);
+	_click(_link("1"));
+}
+
+function datePicker4e()
+{
+
+	_click(_italic("icon-remove[1]"));
+	_click(_image("...[8]"));
+	_wait(1000);
+	_setSelected(_select(10), "2014");
+	_wait(1000);
+	_click(_link("1"));
+}
+
+
+
+function verifydatePicker2b()
+{
+	_assertEqual(" ", _getValue(_textbox("content[avails_attributes][1][formatted_start_date]")));
+}
+
+function verifydatePicker2e()
+{
+
+	_assertEqual(" ", _getValue(_textbox("content[avails_attributes][1][formatted_end_date]")));
+
+}
+
+
+function historyLastUpdateDate()
+{
+var $now = new Date();
+var $now2 = $now.getTime() + ($now.getTimezoneOffset() * 60000);
+
+// *******************************************************************************
+// WARNING: This timezone conversion doesn't take in consideration daylight saving
+// *******************************************************************************
+var $nowPST = new Date($now2 + (3600000*(-7)));
+
+var $updatemonth = $nowPST.getMonth()+1
+if ($updatemonth<10) {$updatemonth ='0' +$updatemonth;}
+
+var $updatedate =$nowPST.getDate();
+if ($updatedate<10) {$updatedate ='0' +$updatedate;}
+
+var $lsaveupdateval =$updatemonth+"/"+$updatedate+"/"+$nowPST.getFullYear()
+var $cell2 =_cell(new RegExp($lsaveupdateval));
+
+$regusername = _cell(new RegExp($getusername1));
+
+var $tlupdate = "updated";
+_assertExists($cell2+ $regusername + $tlupdate);
+
+}

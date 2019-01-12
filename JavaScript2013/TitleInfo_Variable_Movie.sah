@@ -1,0 +1,80 @@
+$vlnewmovie = _link("New Movie");
+
+var $divmovie = _div("Media Type: Movie");
+ 
+var $moviecontentID;
+
+var $getmoviemediatypeval;
+var $movietitleval;
+
+//generate random movie title
+var $now = new Date();
+var $movietest2 = $now.getDate()+$now.getTime();
+var $movietest1 = "Test Movie"
+$movietitleval =  $movietest1+$movietest2;
+
+var $licensorvalm1; 
+var $tcreatehist;
+var $tcreatehistm;
+
+var $studiovalm1;
+var $runtimevalm1;
+var $releasevalm1;
+var $contentvervalm1;
+var $genrevalm1;
+
+var $contratingvalm1;
+var $contratsysvalm1;
+
+var $contratadvvalm1;
+var $contratreasonvalm1;
+var $contcopyvalm1;
+
+var $contshorsyvalm1;
+
+var $contprodcovalm1;
+
+var $contlongsyvalm1;
+
+var $actorvalm1;
+
+var $estidvalm1;
+
+var $vodidvalm1;
+
+var $exidvalm1;
+
+var $uvidvalm1;
+
+var $uvidvalm1;
+
+var $titleeidrvalm1;
+
+var $alphaeidrvalm1;
+
+var $contentratevalm1;
+
+
+function datePicker()
+{
+	_click(_image("...[1]"));
+	_wait(1000);
+	_click(_span("Prev"));
+	_wait(1000);
+	_click(_link("17"));
+
+}
+
+var $stringmesgdelm;
+var $mesgdel = "Successfully deleted ";
+var $stringmesgdelm = $mesgdel + $movietitleval + "x";
+
+
+var $cmid = "Content ID: ";		
+var $mvcontentID;
+var $matchmovcontentID = $cmid + $mvcontentID;
+
+var $comparemid;
+
+var $urlvalm1;
+			

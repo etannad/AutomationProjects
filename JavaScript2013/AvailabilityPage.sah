@@ -1,0 +1,539 @@
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("Availability_Variable.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+
+function updateAvailRec()
+{
+ 	_click($bupdateavail);
+}
+
+function addAvailsicon()
+{
+	_click($bcreatedupem);
+}
+
+function rmAvailsicon()
+{
+	_click($bremovedupem);
+}
+
+
+function addAvailsiconSea()
+{
+	_click($bcreatedupetv);
+}
+// *******************************************************************************
+// Set Purchase Type on each row
+// *******************************************************************************
+
+//FIRST  - EST/VOD
+function selectPurchaseTypeR1($vpurchtype)
+{
+
+   	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(5), $vpurchtype);
+  	}
+  	
+  	else
+  	{
+		_setSelected(_select(6), $vpurchtype);
+	}
+	
+}
+
+
+//SECOND - EST/VOD
+function selectPurchaseTypeR2($vpurchtype)
+{
+
+ 	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(8), $vpurchtype);
+  	}
+  	
+	else
+	{	
+		_setSelected(_select(9), $vpurchtype);
+	}
+}
+
+//VERIFY FIRST PURCHASE TYPE CLONE - EST/VOD
+function verifyClonePurchaseTypeR2($vpurchtype)
+{
+	_assertEqual($vpurchtype, _getSelectedText(_select(6)));
+}
+
+
+//THIRD - EST/VOD
+function selectPurchaseTypeR3($vpurchtype)
+{
+	//_setSelected(_select("span1[4]"), $vpurchtype);	
+	//_setSelected(_select("span1 purchase-type-select[2]"),$vpurchtype);
+	_setSelected(_select(12), $vpurchtype);
+}
+
+//FOURTH - EST/VOD
+function selectPurchaseTypeR4($vpurchtype)
+{
+	//_setSelected(_select("span1[6]"), $vpurchtype);	
+	//_setSelected(_select("span1 purchase-type-select[3]"),$vpurchtype);
+	_setSelected(_select(15), $vpurchtype);
+}
+
+
+// *******************************************************************************
+// Set Definition Type on each row
+// *******************************************************************************
+
+//FIRST - HD/SD
+function selectDefinitionTypeR1($definetype)
+{
+	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(6),$definetype);
+  	}
+  	
+	else
+	{
+		_setSelected(_select(7), $definetype);
+	}
+
+}
+
+//SECOND - HD/SD
+function selectDefinitionTypeR2($definetype)
+{
+	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(9),$definetype);
+  	}
+  	
+	else
+	{
+		_setSelected(_select(10), $definetype);
+	}
+}
+
+//VERIFY FIRST DEFINITION - HD/SD
+function verifyCloneDefTypeR2($definetype)
+{
+	_assertEqual($definetype, _getSelectedText(_select(7)));
+}
+
+
+//THIRD - HD/SD
+function selectDefinitionTypeR3($definetype)
+{
+	//_setSelected(_select("span1[5]"),$definetype);
+	//_setSelected(_select("span1[2]"), $definetype);
+	_setSelected(_select(13), $definetype);
+}
+
+//FOURTH - HD/SD
+function selectDefinitionTypeR4($definetype)
+{
+	//_setSelected(_select("span1[7]"), $definetype);
+	//_setSelected(_select("span1[3]"), $definetype);
+	_setSelected(_select(16), $definetype);
+}
+
+
+
+// *******************************************************************************
+// Set Release Type on each row
+// *******************************************************************************
+
+//FIRST RELEASE TYPE 
+//Release type - list depends on licensor of content; required for VOD; not required for EST
+function selectReleaseTypeR1($vreleasetype)
+{
+	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(7),$vreleasetype);
+  	}
+	else
+	{  	
+		_setSelected(_select(8),$vreleasetype);
+	}
+}
+
+//SECOND RELEASE TYPE
+//Release type - list depends on licensor of content; required for VOD; not required for EST
+function selectReleaseTypeR2($vreleasetype)
+{
+	if(_exists($divtvepisode)||_exists($divtvseason))
+   	{
+  		_setSelected(_select(10),$vreleasetype);
+  	}
+
+	else
+	{
+		_setSelected(_select(11),$vreleasetype);
+	}
+}
+
+//VERIFY FIRST RELEASE TYPE
+function verifyCloneRelsTypeR2($vreleasetype)
+{
+	_assertEqual($vreleasetype, _getSelectedText(_select(8)));
+}
+
+//THIRD RELEASE TYPE
+//Release type - list depends on licensor of content; required for VOD; not required for EST
+function selectReleaseTypeR3($vreleasetype)
+{
+	//_setSelected(_select("span2[2]"), $vreleasetype);
+	_setSelected(_select(14), $vreleasetype);
+}
+
+//FOURTH RELEASE TYPE
+//Release type - list depends on licensor of content; required for VOD; not required for EST
+function selectReleaseTypeR4($vreleasetype)
+{
+	//_setSelected(_select("span2[3]"), $vreleasetype);
+	_setSelected(_select(17), $vreleasetype);
+}
+
+
+// *******************************************************************************
+// Set WholeSale Price on each row
+// *******************************************************************************
+
+//FIRST WHOLESALE PRICE - don't need the wholesale price
+//Wholesale price - can only be set for EST; control is disabled for VOD
+function selectWholesalePriceR1($vprice)
+{
+	if(_exists($divtvepisode))
+   	{
+  		_setValue(_textbox(31), $vprice);
+  	}
+    else if(_exists($divmovie))
+    {
+		_setValue(_textbox(32), $vprice);
+	}
+	else
+	{
+		_setValue(_textbox(24), $vprice);
+	}
+}
+
+//SECOND WHOLESALE PRICE- need wholesale price
+//Wholesale price - can only be set for EST; control is disabled for VOD
+function selectWholesalePriceR2($vprice)
+{
+	if(_exists($divtvepisode))
+   	{
+  		_setValue(_textbox(36), $vprice);
+  	}
+    else if(_exists($divmovie))
+    {
+		_setValue(_textbox(37), $vprice);
+	}
+	else
+	{
+		_setValue(_textbox(29), $vprice);
+	}
+}
+
+//VERIFY FIRST WHOLESALE PRICE
+function verifyCloneWPriceR2($vprice)
+{
+	_assertEqual($vprice, _getValue(_textbox(32)));
+}
+
+//EST - don't need the wholesale price
+//Wholesale price - can only be set for EST; control is disabled for VOD
+function selectWholesalePriceR3($vprice)
+{
+	//_setValue(_textbox("span2[8]"),$vprice);
+	//_setValue(_textbox("span2 wholesale-price-text[2]"),$vprice);
+	_setValue(_textbox(42), $vprice);
+}
+
+//VOD - need wholesale price
+//Wholesale price - can only be set for EST; control is disabled for VOD
+function selectWholesalePriceR4($vprice)
+{
+	//_setValue(_textbox("span2[11]"),$vprice);
+	//_setValue(_textbox("span2 wholesale-price-text[3]"),$vprice);
+	_setValue(_textbox(47), $vprice);
+}
+
+
+function helperCreateAvails($title)
+{
+		_stopOnError();
+		try
+		{		
+		  	_click(_link($title));
+		  	
+		 	if(!_exists($linkavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_click($linkavail);
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+}
+
+function createFirstMovieAvails($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale pric
+ 	_stopOnError();
+		try
+		{
+		    _click($linkavail);
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+
+			selectPurchaseTypeR1($vpurchtype);
+			selectDefinitionTypeR1($definetype);
+			datePicker1b();
+			datePicker1e();
+			selectReleaseTypeR1($vreleasetype);
+			selectWholesalePriceR1($vprice);
+		   		    
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function verifyCloneFirstMovieAvails($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale pric
+ 	_stopOnError();
+		try
+		{
+		    _click($linkavail);
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();		
+				
+             verifyClonePurchaseTypeR2($vpurchtype)
+			//selectPurchaseTypeR1($vpurchtype);
+			 
+			 verifyCloneDefTypeR2($definetype);
+			//selectDefinitionTypeR1($definetype);
+			
+			 verifyCloneRelsTypeR2($vreleasetype);
+			//selectReleaseTypeR1($vreleasetype);
+			
+			verifyCloneWPriceR2($vprice);
+			//selectWholesalePriceR1($vprice);
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function createSecdMovieAvails($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale price
+ 	_stopOnError();
+		try
+		{
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+
+			selectPurchaseTypeR2($vpurchtype);
+			selectDefinitionTypeR2($definetype);
+			datePicker2b();
+			datePicker2e();
+			selectReleaseTypeR2($vreleasetype);
+			selectWholesalePriceR2($vprice);
+			    
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function editMovieAvails($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale pric
+ 	_stopOnError();
+		try
+		{
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+			selectPurchaseTypeR1($vpurchtype);
+			selectDefinitionTypeR1($definetype);
+			selectReleaseTypeR1($vreleasetype);
+			selectWholesalePriceR1($vprice);
+		    
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function createFirstTVShow($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale pric
+ 	_stopOnError();
+		try
+		{
+		   if(_exists($divtvseason))
+		   {
+		    _click(_link(12));
+		    _click($linkavail);
+		   }
+		   else
+		   { 
+		    _click($linkheadseason);
+		    _click($linkavail);
+		    
+		    }
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+
+			selectPurchaseTypeR1($vpurchtype);
+			selectDefinitionTypeR1($definetype);
+			datePicker1b();
+			datePicker1e();
+			selectReleaseTypeR1($vreleasetype);
+			selectWholesalePriceR1($vprice);
+		    
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function createSecdTVShow($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale price
+ 	_stopOnError();
+		try
+		{
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+			
+			selectPurchaseTypeR2($vpurchtype);
+			selectDefinitionTypeR2($definetype);
+			datePicker2b();
+			datePicker2e();
+			selectReleaseTypeR2($vreleasetype);
+			selectWholesalePriceR2($vprice);
+		    
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function rmAvailsTVicon()
+{
+	_click($bremovedupetv);
+}
+
+
+function editTVShowAvails($vpurchtype,$definetype,$vreleasetype,$vprice)
+{
+
+//set purchase type, definition, start date, end date, release type, wholesale pric
+ 	_stopOnError();
+		try
+		{
+			 if(!_exists($bupdateavail))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();			
+
+			selectPurchaseTypeR1($vpurchtype);
+			selectDefinitionTypeR1($definetype);
+			//datePicker1b();
+			//datePicker1e();
+			selectReleaseTypeR1($vreleasetype);
+			selectWholesalePriceR1($vprice);
+
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function verifyWholeSalePriceNotReq()
+{
+	_assertEqual("", _getValue(_textbox(32)));
+
+}
+
+function checkBoxAvail()
+{
+
+}
+
+function setHistoryNoteAvail($commentval1a)
+{
+
+
+	_setValue(_textbox(43), $commentval1a);
+	//_setValue(_textbox("content[comment_string][1]"),$commentval1a);
+	updateAvailRec();
+	testLastUpdateDate();
+	testHistoryDate();
+}
+
+

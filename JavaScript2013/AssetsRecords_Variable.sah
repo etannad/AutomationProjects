@@ -1,0 +1,2 @@
+var $lasset  = _link("Assets");
+var $bupdateasset =_submit("Upload Assets");

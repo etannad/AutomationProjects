@@ -1,0 +1,312 @@
+_include("OfferSearch_Variable.sah");
+
+
+function searchLicensor($licensorval)
+{
+	_stopOnError();
+	try
+	{
+		_click($vltitlesearch);
+		_wait(1000);
+		
+		if(!_exists($vltitlesearch))	
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+		
+		_setSelected(_select("licensor"),$licensorval);
+		submit();
+		_assertExists(_cell($licensorval));
+		
+		_click($lfsearchresult);
+		_wait(1000);
+		
+		_assertEqual($licensorval, _getSelectedText(_select("content[licensor_id]")));
+	
+	}//end of try
+		
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();
+	
+}//end of function
+
+
+function searchMediaTitle($searchttlval, $mediatypeval)
+{
+	_stopOnError();
+	try
+	{
+		_click($vltitlesearch);
+		_wait(1000);
+		
+		if(!_exists($mediatypeval))	
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+		
+		_setValue(_textbox("title"),$searchttlval);
+		_setSelected(_select("media_type"), $mediatypeval);
+		submit();
+		
+		_click($lfsearchresult);
+		
+	}//end of try
+	
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();
+		
+
+}
+
+function searchMediaType($mediatypeval)
+{
+	_stopOnError();
+	try
+	{
+		_click($vltitlesearch);
+		_wait(1000);
+		
+		if(!_exists($mediatypeval))	
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+		
+		_setSelected(_select("media_type"), $mediatypeval);
+		submit();
+		_assertExists(_cell($mediatypeval));
+		_click($lfsearchresult);
+		
+	   //var $newmediatypeval = _getText(_div("span7"))
+	    //_assertExists(_div($newmediatypeval));
+	
+	}//end of try
+		
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();
+	
+}//end of function
+
+
+function submit()
+{
+	_click($vbsubmit);
+	_wait(2000);
+}
+
+function clear()
+{
+	_click($vbclear);
+	_wait(2000);
+
+}
+
+
+function searchContentID($contentidval)
+{
+	_stopOnError();
+		try
+		{
+			_click($vltitlesearch);
+			clear();
+				
+			if(!_exists($contentidval))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			_setValue(_textbox("content_id"), $contentidval);
+			submit();
+			_assertExists(_cell(new RegExp($contentidval)));
+		
+		} //end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();			
+}
+
+function searchTitle_1()
+{
+		_stopOnError();
+		try
+		{
+			_click($vbsubmit);
+			_wait(1000);
+		
+		if(!_exists($lfsearchresult))	
+		{
+		 _takeSnapShots(true);
+		}
+		_continueOnError();
+		
+
+		_click($lfsearchresult);
+		
+		_wait(1000);
+
+		var $searchttlval=  _getValue(_textbox(0));
+		_click($vltitlesearch);
+	
+		_setValue(_textbox("title"),$searchttlval);
+		_wait(2000);
+		submit();
+
+		_assertExists(_link($searchttlval));	
+	}//end of try
+		
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();
+	
+}//end of function	
+
+
+function searchTitle($titleval)
+{
+	_stopOnError();
+		try
+		{
+			_click($vltitlesearch);
+			clear();
+			if(!_exists($titleval))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			_setValue(_textbox("title"), $titleval);
+			submit();
+			_assertExists(_link(new RegExp($titleval)));
+	}//end of try
+		
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();
+	
+}
+
+function searchClear($licensorval,$mediatypeval,$contentidval,$titleval)
+{
+		_stopOnError();
+		try
+		{
+		
+			if(!_exists($vltitlesearch))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_setSelected(_select("licensor"),$licensorval);
+		    _setSelected(_select("media_type"), $mediatypeval);
+		    _setValue(_textbox("content_id"), $contentidval);
+		    _setValue(_textbox("title"), $titleval);
+		    _click($vbclear);
+		    
+		    _wait(1000);
+		    _assertEqual("", _getSelectedText(_select("licensor")));
+		    _assertEqual("", _getSelectedText(_select("media_type")));
+		    _assertEqual("", _getValue(_textbox("content_id")));
+		    _assertEqual("", _getValue(_textbox("title")));
+		    
+		}//end of try
+		    
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+			
+} //end of function
+
+
+function searchPagination($paginationidval)
+{
+		_stopOnError();
+		try
+		{
+		
+			if(!_exists($lpagination))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			_click(_link($paginationidval));
+			_assertExists(_link(new RegExp($tsearchprev)));
+			_assertExists(_link(new RegExp($tsearchfirst)));
+		} //end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+	    _continueOnError();
+
+		//click on prev link and verify you go back on the previous page			
+		_stopOnError();
+		try
+		{	
+			_click(_link("1"));
+			_wait(3000);
+	       _assertExists(_link("2"))
+		} //end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+
+function searchContentID_($contentidval)
+{
+	_stopOnError();
+		try
+		{
+			_click($vltitlesearch);
+			clear();
+				
+			if(!_exists($contentidval))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			_setValue(_textbox("content_id"), $contentidval);
+			submit();
+			
+			//_click(_link(4));
+			_click($lfsearchresult);
+			_wait(1000);
+			_assertExists(_span(new RegEx("2013-02-22")));
+			_assertExists(_span(new RegEx("2013-02-22")));
+			_assertExists(_cell(new RegEx("02/22/2013 [STUDIO_METADATA_INGEST_MODULE] SYSTEM_HAS_SUCCESSFULLY_PUBLISHED_METADATA_TO_ENHANCED_DB")));
+		
+		} //end of try
+		
+		catch(e)
+		{
+		_logException(e);
+		}
+		_continueOnError();
+			
+}
+

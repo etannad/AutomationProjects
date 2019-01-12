@@ -1,0 +1,267 @@
+var $bcreatetrc = _submit("Create");
+var $bupdatetrc = _submit("Update Tracking Pair");
+var $tsourcetype = (_tableHeader("Source Type"));
+var $trackingtab = _link("Tracking");
+var $month;
+var $sourcetype;
+
+var $setdatepicker;
+/*
+var $orderdate = "Set Ordered Date"; 
+var $irrecdate = "Set Received Date";
+var $irbilldate = "Set Billed Date";
+var $irpaydate = "Set Payment Date";
+
+var $iwodate = "Set WO Workflow Status Date";
+var $iwodelreqdate = "Set WO Delivery Request Date";
+var $iwobilldate= "Set WO Billed Date";
+var $iwopaydate= "Set WO Payment Date";
+
+*/
+/*
+var $sorderdateast = _span("Ordered Date"); 
+var $srecdateast = _span("Received Date");
+var $sbilldateast =_span("Billed Date");
+var $spaydateast = _span("Payment Date");
+
+var $swodatewo =_span("Workflow Status Date");
+var $sdelreqdatewo =_span("Delivery Request Date");
+var $sbilldatewo= _span("Billed Date[1]");
+var $spaydatewo= _span("Payment Date[1]");
+*/
+
+// *******************************************************************************
+// FIRST BUTTON for ASSET
+// *******************************************************************************
+var $lnewsrcvid1 = _link("New Studio Source");
+var $borderpairvid1 =_link("New Source-Order Pair");
+var $bwovideo1 = _link("New Work Order");
+var $beditvid1 = _link("Edit");
+var $tvideo = "video";
+
+// *******************************************************************************
+// SECOND BUTTON for ASSET
+// *******************************************************************************
+var $lneditrctrail2 = _link("New Studio Source[1]");
+var $borderpairtrail2 = _link("New Source-Order Pair[1]");
+var $bwotrail2 = _link("New Work Order[1]");
+var $bedittrail2 = _link("Edit[1]");
+var $ttrailer = "trailer";
+
+// *******************************************************************************
+// THIRD SECOND BUTTON for ASSET
+// *******************************************************************************
+var $lnewsrccapt3 = _link("New Studio Source[2]");
+var $borderpaircapt3 = _link("New Source-Order Pair[2]");
+var $bwocapt3 = _link("New Work Order[2]");
+var $beditcapt3 = _link("Edit[2]");
+var $tcaptions = "captions";
+
+// *******************************************************************************
+// BADGE NOT REQUEST
+// *******************************************************************************
+var $bfnotrequest = _span("badge badge-important");
+var $bscnotrequest = _span("badge badge-important[1]");
+var $btnotrequest = _span("badge badge-important[2]");
+var $bftnotrequest = _span("badge badge-important[3]");
+var $bfinotrequest = _span("badge badge-important[4]");
+var $bsnotrequest = _span("badge badge-important[5]");
+
+// *******************************************************************************
+// BADGE WARNING
+// *******************************************************************************
+var $bfwarning = _span("badge badge-warning");
+var $bscwarning = _span("badge badge-warning[1]");
+var $btwarning = _span("badge badge-warning[2]");
+var $bftwarning = _span("badge badge-warning[3]");
+var $bfiwarning = _span("badge badge-warning[4]");
+var $bswarning = _span("badge badge-warning[5]");
+
+// *******************************************************************************
+// BADGE FOR VIDEO   - SOURCE VIDEO DELIVERD AND COMPLETED
+// *******************************************************************************
+var $bfsuccess = _span("badge badge-success");
+var $bscsuccess = _span("badge badge-success[1]");
+var $btsuccess = _span("badge badge-success[2]");
+var $bftsuccess = _span("badge badge-success[3]");
+var $bfisuccess = _span("badge badge-success[4]");
+var $bssuccess = _span("badge badge-success[5]");
+
+function setDatePicker($setdatepicker,$month,$day)
+{
+ 	//_click(_italic("icon-remove"));
+ 	
+ 	if($setdatepicker == "Set Ordered Date")
+ 	{
+		_click(_image("..."));
+	}
+	if($setdatepicker == "Set Received Date")
+	{
+		_click(_image("...[1]"));
+	}
+	if($setdatepicker == "Set Billed Date")
+	{
+		_click(_image("...[2]"));
+	}
+	if($setdatepicker == "Set Payment Date")
+	{
+		_click(_image("...[3]"));
+	}
+	if($setdatepicker == "Set WO Workflow Status Date")
+	{
+		_click(_image("...[4]"));
+	}
+	if($setdatepicker == "Set WO Delivery Request Date")
+	{
+		_click(_image("...[5]"));
+	}
+	if($setdatepicker == "Set WO Billed Date")
+	{
+		_click(_image("...[6]"));
+	}
+	if($setdatepicker == "Set WO Payment Date")
+	{
+		_click(_image("...[7]"));
+	}
+	//_setSelected(_select(2),$year);
+	_setSelected(_select(1),$month);
+	_setValue(_link($day),$day);
+	_click(_link($day));
+}
+
+// *******************************************************************************
+// SET SOURCE ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $source1 = "SourceTestID";
+var $source2 = $now.getDate()+$now.getTime();
+$sourceval3 = $source1+$source2;
+
+function setAssetSourceID($sourceval3)
+{
+	//_setValue(_textbox("studio_source[source_id]"),$sourceval3);
+	_setValue(_textbox("source_order_pair[studio_source_attributes][source_id]"), $sourceval3);
+}
+
+
+// *******************************************************************************
+// SET MPM ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $mpm1 = "MPMTestID";
+var $mpm2 = $now.getDate();
+$mpmval3 = $mpm1+$mpm2;
+
+function setAssetMPMID($mpmval3)
+{
+	//_setValue(_textbox("studio_source[mpm_number]"),$mpmval3);
+	_setValue(_textbox("source_order_pair[studio_source_attributes][mpm_number]"), $mpmval3);
+}
+
+
+// *******************************************************************************
+// SET PO ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $po1 = "P.O.Test ID";
+var $po2 = $now.getDate()+$now.getTime();
+$poval3 = $po1+$po2;
+
+function setAssetPOID($poval3)
+{
+	//_setValue(_textbox("studio_source[po_number]"),$poval3);
+	_setValue(_textbox("source_order_pair[studio_source_attributes][po_number]"), $poval3);
+}
+
+
+// *******************************************************************************
+// SET INV ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $inva1 = "INV Asset Test ID";
+var $inva2 = $now.getDate()+$now.getTime();
+$invaval3 = $inva1+$inva2;
+
+function setAssetInvID($invaval3)
+{
+
+	_setValue(_textbox("source_order_pair[studio_source_attributes][invoice_number]"),$invaval3);
+}
+
+
+//*******************************************************************************
+// SET PAYMENT REFERENCE ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $payref1 = "Ref.Test ID";
+var $payref2 = $now.getDate()+$now.getTime();
+$payrefval3 = $payref1+$payref2;
+
+function setAssetPayRefID($payrefval3)
+{
+	//_setValue(_textbox("studio_source[payment_reference]"),$payrefval3);
+	_setValue(_textbox("source_order_pair[studio_source_attributes][payment_reference]"),$payrefval3);
+
+}
+
+
+// *******************************************************************************
+// SET WORKFLOW STATUS FIELD - NOT STARTED, TRANSFER, COMPLETED
+// *******************************************************************************
+function setWorkFlowStat($wflowstat)
+{
+	//_setSelected(_select("studio_source[work_orders_attributes][0][workflow_status]"),$wflowstat);
+	_setSelected(_select("source_order_pair[work_order_attributes][workflow_status]"),$wflowstat);
+}
+
+
+// *******************************************************************************
+// SET WORK ORDER ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $wo1 = "W.O.Test ID";
+var $wo2 = $now.getDate()+$now.getTime();
+$woval3 = $wo1+$wo2;
+
+function setWOID($woval3)
+{
+	//_setValue(_textbox("studio_source[work_orders_attributes][0][work_order_number]"),$woval3);
+	_setValue(_textbox("source_order_pair[work_order_attributes][work_order_number]"), $woval3);
+	
+}
+
+
+// *******************************************************************************
+// SET WORK ORDER INV ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $woinv1 = "W.O.INV Test ID";
+var $woinv2 = $now.getDate()+$now.getTime();
+$woinvval3 = $woinv1+$woinv2;
+
+function setWOInvoiceID($woinvval3)
+{
+	//_setValue(_textbox("studio_source[work_orders_attributes][0][wo_invoice_number]"), $woinvval3);
+	_setValue(_textbox("source_order_pair[work_order_attributes][wo_invoice_number]"), $woinvval3);
+
+	
+}
+
+
+// *******************************************************************************
+// SET W.O PayRef ID FIELD
+// *******************************************************************************
+var $now = new Date();
+var $wopayref1 = "W.O.Payment Test ID";
+var $wopayref2 = $now.getDate()+$now.getTime();
+$wopayrefval3 = $wopayref1+$wopayref2;
+
+function setWOPaymentID($wopayrefval3)
+{
+	//_setValue(_textbox("studio_source[work_orders_attributes][0][wo_payment_reference]"), $wopayrefval3);
+	_setValue(_textbox("source_order_pair[work_order_attributes][wo_payment_reference]"), $wopayrefval3);
+}
+
+
+
+

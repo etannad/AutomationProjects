@@ -1,0 +1,33 @@
+//User name and Password variable UI
+
+$vblogin = _submit("Login");
+
+var $vtusername;
+
+var $getusername1;
+
+var $regusername ;
+
+$vllogout =_link("contentqafrank logout");
+
+$vltitlesearch = _link("Title Search");
+
+var $lfsearchresult = _link(4);
+
+var $licensorval;
+var $mediatypeval;
+var $titleval;
+var $contentidval;
+var $paginationidval = null;
+
+$lpagination = _link("2");
+
+$vcellWB =_cell("WB");
+$vbsubmit = _submit("Submit");
+$vbclear =_submit("Clear");
+
+$tsearchprev = "Prev";
+$tsearchfirst = "First";
+
+
+var $vbclear = _submit("Clear");

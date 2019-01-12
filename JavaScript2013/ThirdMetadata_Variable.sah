@@ -1,0 +1,62 @@
+var $lthirdpartymatch = _link("Third Party Matches");
+var $bupdatematch = _submit("Update Third Party Metadata Match");
+var $lcastcrew = _link("Cast/Crew Matches");
+var $ltitleinfo = _link("Title Info");
+var $bcastcrew = _submit("Update Cast Crew Matches");
+var $thirpartydiv  = _div("span8[1]");
+var $lsignnomatch = (_link("Writer Jon Schroeder ✗"));
+var $ssignnamecast =(_span("Name ✓"));
+var $dfirsdivparty =_div("span10");
+var $dnomatch = _div("No Match");
+var $newcast;	
+
+var $cast1;
+var $cast2;
+var $actor ="Actor ";
+var $sign = " ✓";
+//var $castfieldid;
+//$castfieldid= _textbox("content[cast_crews_attributes][0][crew_name]");
+
+var $cast1field;
+var $newcastcrew;
+var $actortextbox = "Actor";
+var $castname2; 
+
+var $modifycast;
+
+var $scast1;
+var $scast3;
+
+var $ecast1;
+var $ecast2;
+var $ecast3;
+
+var $tgenres =_span("Genres");
+
+function bupdatematch()
+{
+ _click($bupdatematch);
+}
+
+
+function linkMetadata()
+{
+	_click($vlmetadata);
+}
+
+
+function linkCastCrew()
+{
+	_click($lcastcrew);
+}
+
+function checkCastCrew()
+{
+	_assertExists($ssignnamecast);
+}
+
+function ltitleInfo()
+{
+	_click($ltitleinfo);
+}
+

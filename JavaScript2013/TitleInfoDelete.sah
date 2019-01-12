@@ -1,0 +1,121 @@
+_include("TitleInfoCreate.sah");
+_include("TitleInfo_Variable_Movie.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+
+
+function unableDelPublishedRec($linkrecord)
+{
+
+	_stopOnError();
+		try
+		{
+			_click(_link($linkrecord));
+			_wait(1000);
+		
+			if(_exists($bdelete))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+		}
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();
+			
+
+}
+
+
+function deleteRecords()
+{
+		_stopOnError();
+		try
+		{
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_click($bdelete);
+			
+		}
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();
+			
+}
+
+/*
+
+function unableDelRecords()
+{
+
+		_stopOnError();
+		try
+		{
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			else if(!_exists($divtvepisode))
+			{
+			   _click($linkheadseason);
+			   if (_exists($bdelete))
+			   {
+			   	_takeSnapShots(true);
+			   }
+			   //_continueOnError();
+			}
+			//_continueOnError();
+			
+			else if(!_exists($divtvseason))
+			{
+					_click($linkheadseries);
+					
+					if(_exists($bdelete))
+					{
+						_takeSnapShots(true);
+					}
+					// _continueOnError();
+			}
+			//_continueOnError();
+			else
+			{
+			
+			}//end of else
+			//_continueOnError();
+		
+		}//end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();
+} */
+
+
+

@@ -1,0 +1,647 @@
+_include("Metadata_Variable.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+
+function updateTitleInfoMovie()
+{
+/*	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			if(_getText(_span("TV Series")) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+				
+			_setValue(_textbox("content[title]"), $seriestitleval1a);
+			_setValue(_textbox("content[comment_string]"), $commentval1a);
+			_setSelected(_select("content[licensor_id]"), $licensorval1a);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+			_click($vbsave);	
+				
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+		
+		//verify the  edit fields value on the series title info page	
+   		_stopOnError();
+		try
+		{
+             _wait(2000);
+			
+			testRegularDate();    
+		    _assertContainsText("TV Series", _span("TV Series"));
+			_assertEqual($seriestitleval1a,_getValue(_textbox("content[title]")));
+			_assertEqual($licensorval1a, _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertExists($vbaddseason);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError(); */
+
+
+}
+
+function updateTitleInfoSeries($seriestitleval1a,$licensorval1a,$commentval1a)
+{		
+
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+				
+			_setValue(_textbox("content[title]"), $seriestitleval1a);
+			_setValue(_textbox("content[comment_string]"), $commentval1a);
+			_setSelected(_select("content[licensor_id]"), $licensorval1a);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+			_click($vbsave);	
+				
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+		
+		//verify the  edit fields value on the series title info page	
+   		_stopOnError();
+		try
+		{
+             _wait(2000);
+			
+			testRegularDate();    
+			_assertEqual($seriestitleval1a,_getValue(_textbox("content[title]")));
+			_assertEqual($licensorval1a, _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertExists($vbaddseason);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+function updateTitleInfoSeriesMin($seriestitleval1a)
+{		
+
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+					
+			_setValue(_textbox("content[title]"), $seriestitleval1a);
+			_setValue(_textbox("content[comment_string]"), $commentval1a);
+		    _setSelected(_select("content[licensor_id]"), "");
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+			_click($vbsave);	
+			//erroronLicensor();
+				
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+function erroronLicensor()
+{
+	_assertExists(_div("[\"Licensor cannot be blank.\", \"Content failed minumum requirements to persist.\"]"));
+
+}
+
+function updateTitleInfoSeason($licensorval2b, $seasonnumbval2b, $episodenumbval2b)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_continueOnError();
+			_setSelected(_select("content[licensor_id]"), $licensorval2b);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $seasonnumbval2b);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), $episodenumbval2b);
+	
+			_wait(1000);
+			_click($vbsave);	
+		}//end of try
+
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+
+		//verify the edit fields value on the season title info page	
+   		_stopOnError();
+		try
+		{
+		 
+			_assertEqual($licensorval2b, _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual($seasonnumbval2b, _getValue(_textbox("content[tv_show_attributes][tv_show_sequence]")));
+			_assertEqual($episodenumbval2b, _getValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]")));
+		  	_assertExists(_link(new RegExp($seasonnumbval2b)));
+		  	_assertExists(_cell(new RegExp($episodenumbval2b)));
+		  	_assertExists(_tableHeader("Content ID[1]"));
+		  
+		}//end of try
+		  		  		
+		 catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();  
+}
+
+function updateTitleInfoSeasonMin($licensorval2b, $seasonnumbval2b, $episodenumbval2b)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_setSelected(_select("content[licensor_id]"), $licensorval2b);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $seasonnumbval2b);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), $episodenumbval2b);
+			testLastUpdateDate();
+	
+			_wait(1000);
+			_click($vbsave);	
+		}//end of try
+
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+function updateTitleInfoEpisode($licensorval3a,$episodenumbval3a,$episodenameval3a)
+{
+	
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_setSelected(_select("content[licensor_id]"), $licensorval3a);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $episodenumbval3a);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_name]"), $episodenameval3a);
+			_wait(1000);
+			_click($vbsave);	
+			
+		}//end of try
+
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+
+		//verify the edit fields value on the episode title info page	
+   		_stopOnError();
+		try
+		{
+				
+			_assertExists(_heading2(new RegExp($episodenumbval3a)));
+			_assertExists(_heading2(new RegExp($episodenameval3a)));
+			_assertEqual($licensorval3a, _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual($episodenumbval3a, _getValue(_textbox("content[tv_show_attributes][tv_show_sequence]")));
+			_assertEqual($episodenameval3a, _getValue(_textbox("content[tv_show_attributes][tv_show_name]")));
+		
+		  	_assertExists(_link(new RegExp($episodenameval3a)));
+		  	_assertExists(_link(new RegExp($episodenumbval3a)));
+		  
+		}//end of try
+		  		  		
+		 catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError(); 
+
+}
+
+function updateTitleInfoEpisodeMin($licensorval3a,$episodenumbval3a,$networkval3a)
+{
+	
+	_stopOnError();
+		try
+		{
+			_click($vbsave);
+			_wait(1000);
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_setSelected(_select("content[licensor_id]"), $licensorval3a);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"),$episodenumbval3a);
+			_setSelected(_select("content[tv_show_attributes][tv_network]"), $networkval3a);
+			_wait(1000);
+			_click($vbsave);	
+			
+		}//end of try
+
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+
+function updatePublishedNonActor()
+{
+	_stopOnError();
+		try
+		{
+			_click(_link("24"));
+			_wait(1000);
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+		 	_click($vlmetadata);
+		 	_setValue(_textbox("content[genres_string]"), "");
+		 	_wait(1000);
+		 	_setValue(_textbox("content[genres_string]"), "Comedy,popular");
+		 	_setValue(_textbox("content[cast_crews_attributes][0][crew_name]"), "");
+		 	_setValue(_textbox(14), "Bob Johnson");
+		
+		 	var $crewval1 = _getValue(_textbox(14));
+		 	_click($vbupdatemetadata);
+		 	_click($vlmetadata);
+		 	
+		 	var $crewval2 =  _getValue(_textbox(14));
+		 	_assertEqual($crewval1, $crewval2,"Failontesting");
+		 	
+		 	
+			}//end of try
+			
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+function errorPublishedDataNoActor()
+{
+	_assertExists(_div("[\"Genres names must be well-known: popular\", \"Content must have at least one cast member after publication.\", \"Content failed minumum requirements to publish.\"]"));
+}
+
+
+function updatePublishedNonGenre()
+{
+	_stopOnError();
+		try
+		{
+		_click(_link("24"));
+		_wait(1000);
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+		 	_click($vlmetadata);
+		 	_wait(5000);
+		 	_setValue(_textbox("content[genres_string]"), "Drama");
+		 	_wait(1000);
+		 	_setValue(_textbox("content[genres_string]"), "");
+		 	_click($vbupdatemetadata);
+			 	
+			}//end of try
+
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+
+function errorPublishedDataNoGenre()
+{
+	_assertExists(_div("[\"Genres string cannot be blank.\", \"Content failed minumum requirements to publish.\"]"));
+
+}
+
+
+
+function updatePublishedRecords($commentval1a,$title)
+{
+	_stopOnError();
+		try
+		{
+			
+			 _click($lfsearchresult);
+			_wait(1000);
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+		 	_click($vlmetadata);
+		 	_wait(1000);
+	
+		 	var $getdate1 = _getText(_div("span4"));
+		 	_setValue(_textbox("content[genres_string]"), " ");
+		 	_setValue(_textbox("content[genres_string]"), "Comedy");
+		 	
+		 	_setValue(_textbox("content[comment_string]"),$commentval1a);
+		 			 	
+		 	_click($vbupdatemetadata);
+		 	_wait(20000);
+		 	
+		 	var $getdate2 = _getText(_div("span4"));
+		 	
+		 	//_assertEqual($getdate1, $getdate2, "Testing not passed");
+		 	_assertNotEqual($getdate1, $getdate2, "Testing passed");
+		 	
+			}//end of try
+			
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+
+function unableUpdateCascdSeries()
+{
+
+  _stopOnError();
+		try
+		{
+			_click($lfsearchresult);
+			
+			_wait(1000);
+			_click($linkheadseries);
+		
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+	
+		  //set the series title to empty
+		  _setValue(_textbox("content[title]"), "");
+		  _wait(1000);
+		  
+	      //set the series title with new value
+	       _setValue(_textbox("content[title]"),"Saved by the Bell" + $tcascseriesval1);
+	       _wait(1000);
+	       
+	      _click($vbsave);
+	      _wait(1000);
+      
+	
+		}//end of try
+			
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+
+function republishedCascdSeries($title)
+{
+  	_stopOnError();
+	try
+	{
+		_click($lfsearchresult);
+		_wait(1000);
+		
+		if(!_exists(_div("span7")))
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+	
+		_click(_link(14));
+		_wait(1000);
+		_setValue(_textbox("content[comment_string]"), $commentval1a);  
+     	_click($vbsave);
+      	_wait(1000);
+		  
+	}//end of try
+			
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();	
+}
+
+
+function updateEpisodeNoImage($title, $commentval1a)
+{
+  	_stopOnError();
+	try
+	{
+		_click($lfsearchresult);
+		_wait(1000);
+		
+		if(!_exists(_div("span7")))
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+   
+    	_click(_link("Southland: Season 4"));
+    	_click(_link("Southland: Season 4 Episode 1 - Wednesday"));
+   
+		_setValue(_textbox("content[comment_string]"), $commentval1a);  
+		testRegularDate();
+     	_click($vbsave);
+      	_wait(1000);
+		  
+	}//end of try
+			
+	catch(e)
+	{
+		_logException(e);
+	}
+	_continueOnError();	
+} 
+
+function noErrorPublishedRec()
+{
+	_stopOnError();
+	try
+	{
+		if(_exists(_div("alert")))
+		{
+			_takeSnapShots(true);
+			
+		}
+	
+		_continueOnError();
+		//_click($vbsave);
+		
+	}//end of try
+			
+	catch(e)
+	{
+		_logException(e);
+	}
+	_stopOnError();	
+	
+}
+
+function errorRec()
+{
+	_stopOnError();
+	try
+	{
+		if(!_exists(_div("alert")))
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+		//_click($vbsave);
+		
+	}//end of try
+			
+	catch(e)
+	{
+		_logException(e);
+	}
+	_stopOnError();	
+	
+}
+
+
+function publishContent($title)
+{
+		_stopOnError();
+		try
+		{
+			
+			var $stitle = $title +"_";
+			_click(_link(new RegExp($stitle)));
+			_wait(1000);
+			
+			if(!_exists($vbpublish))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			$getdate1 = _getText(_div("span4"));	
+			_setValue(_textbox("content[comment_string]"), $commentval1a);
+			_wait(100000);
+			_click($vbpublish);	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function verifyPublishContent($getdate1)
+{
+
+	_stopOnError();
+		try
+		{
+			
+			//check time stamp on the publish field
+			if(!_exists($vbpublish))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$getdate2 = _getText(_div("span4"));	
+			_assertNotEqual($getdate1, $getdate2, "Testing passed");
+			$tpublish = _cell(new RegExp($tpublish));
+			_assertExists($tpublish);
+	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}

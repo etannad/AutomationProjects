@@ -1,0 +1,1219 @@
+_include("TitleInfo_Variable_Movie.sah");
+_include("TitleInfoUpdate.sah")
+_include("Metadata_Variable.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+
+function createTitleInfoMovie($movietitleval, $licensorvalm1)
+{
+	_stopOnError();
+		try
+		{
+		    _wait(1000);
+			_click($vlnewmovie);
+			
+			if(_getValue(_textbox("content[media_type]")) != "Movie")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$mvcontentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($mvcontentID, _getValue(_textbox("content[content_id]")));
+		
+			$getmoviemediatypeval = _getValue(_textbox("content[media_type]"));
+			_assertEqual($getmoviemediatypeval, _getValue(_textbox("content[media_type]")));
+	
+			_setValue(_textbox("content[title]"), $movietitleval);
+			
+			_setSelected(_select("content[licensor_id]"), $licensorvalm1);
+			
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+
+}
+
+function verifyTitleInfoMovie($movietitleval, $licensorvalm1)
+{
+		//verify that the fields value on the series title info page	
+   		_stopOnError();
+		
+		try
+		{
+		
+			_wait(1000);
+			create();
+			if(!_exists(_div("span7")))
+			
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+				
+			$matchmovcontentID = $cmid + $mvcontentID;
+			$comparemid = _getText(_div("span7"));
+			
+			_assertEqual($matchmovcontentID, $comparemid);
+			
+			_assertEqual($movietitleval, _getValue(_textbox("content[title]")));
+			_assertEqual($licensorvalm1, _getSelectedText(_select("content[licensor_id]")));
+						
+			//history log contains date, login user name and series title name on it
+		     
+		    testRegularDate();    
+		   	$regusername = _cell(new RegExp($getusername1));
+			_assertExists($regusername); 
+			
+			$tcreatehist = $tcreated+$movietitleval;
+			$tcreatehistm = _cell(new RegExp($tcreatehist));
+			
+			_assertExists($tcreatehistm);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError(); 	
+}
+
+
+function deleteMovieMesg($movietitleval)
+{
+
+	_assertExists(_div("alert")); 
+	//_assertExists(_div($stringmesgdelm));
+}
+
+function createTitleInfoMoviePublished($licensorvalm1,$genrevalm1,$contshorsyvalm1,$urlvalm1)
+{
+
+		_stopOnError();
+		try
+		{
+			
+			createTitleInfoMovie($movietitleval, $licensorvalm1);	
+					
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_wait(5000);
+			
+			createHelperMoviePublishedRec($genrevalm1,$contshorsyvalm1,$urlvalm1)
+			//helperCreateMulticast();
+			
+			_wait(1000);
+			create();
+			
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+}
+
+
+function createHelperMoviePublishedRec($genrevalm1,$contshorsyvalm1,$urlvalm1)
+{
+	_setValue(_textbox("content[genres_string]"),$genrevalm1);
+	_setValue(_textbox("content[short_synopsis]"), $contshorsyvalm1);
+	_setValue(_textbox("content[content_asset_attributes][fulfillment_url]"), $urlvalm1);
+		    
+}
+
+function verifyPublishedRec($genrevalm1,$contshorsyvalm1)
+{
+	_assertEqual($genrevalm1, _getValue(_textbox("content[genres_string]")));
+	_assertEqual($contshorsyvalm1, _getValue(_textbox("content[short_synopsis]")));
+}
+
+
+function erroronDuplicate()
+{
+	_assertExists(_div("[\"Content failed uniqueness test.\"]"));
+}
+
+
+function createTitleInfoMovieMin($movietitleval)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewmovie);
+			_wait(1000);
+			
+			if(_getValue(_textbox("content[media_type]")) != "Movie")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$mvcontentID  = _getValue(_textbox("content[content_id]"));
+			_assertEqual($mvcontentID, _getValue(_textbox("content[content_id]")));
+			_setValue(_textbox("content[title]"), $movietitleval);
+		
+			_assertEqual("Movie", _getValue(_textbox("content[media_type]")));
+	
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+
+			create();		
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+
+
+function createTitleInfoMovieAll($movietitleval, $licensorvalm1, $studiovalm1, $runtimevalm1, $releasevalm1, $contentvervalm1, $genrevalm1, $contratsysvalm1, $contratingvalm1, $contratadvvalm1, $contratreasonvalm1, $contcopyvalm1, $contprodcovalm1, $contshorsyvalm1, $contlongsyvalm1, $actorvalm1, $estidvalm1, $vodidvalm1, $exidvalm1, $uvidvalm1, $uvidvalm1, $titleeidrvalm1, $alphaeidrvalm1)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewmovie);
+			_wait(1000);
+			
+			if(_getValue(_textbox("content[media_type]")) != "Movie")
+			
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$mvcontentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($mvcontentID, _getValue(_textbox("content[content_id]")));
+		
+			$getmoviemediatypeval = _getValue(_textbox("content[media_type]"));
+			_assertEqual($getmoviemediatypeval, _getValue(_textbox("content[media_type]")));
+	
+			_setValue(_textbox("content[title]"), $movietitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorvalm1);
+			
+			_setSelected(_select("content[studio]"), $studiovalm1);
+			
+			_setValue(_textbox("content[runtime]"), $runtimevalm1);
+			
+			_setValue(_textbox("content[release_year]"),$releasevalm1);
+			
+			datePicker();		
+		
+			_setSelected(_select("content[content_version_type_id]"), $contentvervalm1);
+			
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			
+			_setValue(_textbox("content[genres_string]"),$genrevalm1);
+				
+			_setSelected(_select("content[rating_system]"),$contratsysvalm1);
+
+			_setSelected(_select("content[rating]"),$contratingvalm1);
+		
+			_setValue(_textbox("content[rating_advisory]"), $contratadvvalm1);
+			
+			_setValue(_textbox("content[rating_reason]") ,$contratreasonvalm1);
+			
+			_setValue(_textbox("content[copyright]"), $contcopyvalm1);
+			
+			_setValue(_textbox("content[production_company_attributes][production_name]"), $contprodcovalm1);
+			
+			_setValue(_textbox("content[short_synopsis]"), $contshorsyvalm1);
+			
+			_setValue(_textarea("content[long_synopsis]"), $contlongsyvalm1);
+				
+			_setValue(_textbox("content[est_external_id]"), $estidvalm1);
+			
+			_setValue(_textbox("content[vod_external_id]"), $vodidvalm1);
+			
+			_setValue(_textbox("content[external_id]"), $exidvalm1);
+			
+			_setValue(_textbox("content[uv_content_id]"), $uvidvalm1);
+			
+			_setValue(_textbox("content[alid]"), $uvidvalm1);
+			
+			_setValue(_textbox("content[title_eidr]"), $titleeidrvalm1);
+			
+			_setValue(_textbox("content[alpha_eidr]"), $alphaeidrvalm1);
+			
+			_wait(1000);
+			create();
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+		
+	
+		//verify that the fields value on the Movie page	
+   		_stopOnError();
+		try
+		{
+		
+			if(!_exists($divmovie))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			var $cmid = "Content ID: ";		
+		
+			var $matchmovcontentID = $cmid + $mvcontentID;
+			var $comparemid = _getText(_div("span7"));
+			
+			_assertEqual($matchmovcontentID, $comparemid);
+			
+			_assertEqual($movietitleval, _getValue(_textbox("content[title]")));
+			
+			_assertEqual($licensorvalm1, _getSelectedText(_select("content[licensor_id]")));
+			
+			_assertEqual($runtimevalm1, _getValue(_textbox("content[runtime]")));
+			
+			_assertEqual($estidvalm1, _getValue(_textbox("content[est_external_id]")));	
+		
+			_assertEqual($vodidvalm1, _getValue(_textbox("content[vod_external_id]")));
+			_assertEqual($exidvalm1, _getValue(_textbox("content[external_id]")));
+			_assertEqual($uvidvalm1, _getValue(_textbox("content[uv_content_id]")));
+
+			_assertEqual($uvidvalm1, _getValue(_textbox("content[alid]")));
+			_assertEqual($titleeidrvalm1, _getValue(_textbox("content[title_eidr]")));
+			_assertEqual($alphaeidrvalm1, _getValue(_textbox("content[alpha_eidr]")));			
+			
+			//history log contains date, login user name and series title name on it
+		    testRegularDate();
+			$tcreatehist = $tcreated+$movietitleval;
+			$tcreatehistm = _cell(new RegExp($tcreatehist));
+			
+			_assertExists($tcreatehistm);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError(); 
+		
+}
+
+
+function verifyTitleInfoMovieAll($movietitleval, $licensorvalm1, $studiovalm1, $runtimevalm1, $releasevalm1, $contentvervalm1, $genrevalm1, $contratingvalm1, $contratsysvalm1, $contratadvvalm1, $contratreasonvalm1, $contcopyvalm1, $contprodcovalm1, $contshorsyvalm1, $contlongsyvalm1, $actorvalm1, $estidvalm1, $vodidvalm1, $exidvalm1, $uvidvalm1, $uvidvalm1, $titleeidrvalm1, $alphaeidrvalm1)
+{
+	_assertEqual($releasevalm1, _getValue(_textbox("content[release_year]")));
+	
+	_click($vlmetadata);
+
+	_assertEqual($genrevalm1, _getValue(_textbox("content[genres_string]")));
+	
+	_assertEqual($contentvervalm1, _getSelectedText(_select("content[content_version_type_id]")));
+
+	_assertEqual($contratsysvalm1, _getSelectedText(_select("content[rating_system]")));
+	
+	_assertEqual($contratingvalm1, _getSelectedText(_select("content[rating]")));
+	
+	_assertEqual($contratadvvalm1, _getValue(_textbox("content[rating_advisory]")));
+
+	_assertEqual($contratreasonvalm1, _getValue(_textbox("content[rating_reason]")));
+
+	_assertEqual($contcopyvalm1, _getValue(_textbox("content[copyright]")));
+	
+	_assertEqual($contprodcovalm1, _getValue(_textbox("content[production_company_attributes][production_name]")));
+
+	_assertEqual($contshorsyvalm1, _getValue(_textbox("content[short_synopsis]")));
+		
+	_assertEqual($contlongsyvalm1, _getValue(_textarea("content[long_synopsis]")));
+
+}
+
+function create()
+{
+	_click($vbcreate);
+}
+
+
+function createTitleInfoSeries($seriestitleval,$licensorval1)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewseries);
+			_wait(1000);
+			
+			if((_getValue(_textbox("content[media_type]"))) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID, _getValue(_textbox("content[content_id]")));
+			_setValue(_textbox("content[title]"), $seriestitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+			create();
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+}
+
+function verifyTitleInfoSeries($seriestitleval,$licensorval1)		
+{		
+		//verify that the fields value on the series title info page	
+   		_stopOnError();
+		try
+		{
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+					
+			//var $cid = "Content ID: ";
+			
+			var $matchcontentID = $cid + $contentID;
+			var $compareid = _getText(_div("span7"));
+			
+			_assertEqual($matchcontentID, $compareid);
+			
+			_assertExists(_div($mediatypeseries));
+
+			_assertEqual($seriestitleval, _getValue(_textbox("content[title]")));
+	
+			_assertExists(_div($tfsavevalue));
+			
+			//history log contains date, login user name and series title name on it
+		     
+		    testRegularDate();
+		     
+		    $regusername = _cell(new RegExp($getusername1));
+			_assertExists($regusername); 
+			
+			$tcreatehist = $tcreated+$seriestitleval;
+			$tcreatehist = _cell(new RegExp($tcreatehist));
+			
+			_assertExists($tcreatehist);
+			_assertExists($vbaddseason);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function errorMessage()
+{   //$seriestitleval
+	//_assertExists(_div($stringmesgdel));
+	_assertExists(_div("alert"));
+	//_click(_div("[close]"));
+	
+}
+
+
+function createTitleInfoSeriesMin($licensorval1)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewseries);
+			_wait(1000);
+			
+			if(_getValue(_textbox("content[media_type]")) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID1 = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID1, _getValue(_textbox("content[content_id]")));
+			_assertEqual("TV Series", _getValue(_textbox("content[media_type]")));
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_wait(1000);
+
+			create();		
+			//erroronSeriesMin();
+		
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+}
+
+function erroronSeriesMin()
+{
+	_assertExists(_div("[\"Title cannot be blank.\", \"Content failed minumum requirements to persist.\"]"));
+
+}
+
+
+function createTitleInfoSeason($licensorval2,$seasonnumbval2,$episodenumbval2)
+{
+
+	_stopOnError();
+		try
+		{			
+			createTitleInfoSeries($seriestitleval,$licensorval2);
+			_wait(1000);
+			
+			if(!_exists(_textbox(1)))
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddseason);
+			_wait(5000);
+			
+			//set the season content value on the page			
+			$contentID2 = _getValue(_textbox("content[content_id]"));		
+			_assertEqual($contentID2, _getValue(_textbox("content[content_id]")));
+			_wait(2000);	
+			_assertEqual("TV Season", _getValue(_textbox("content[media_type]")));
+			_setSelected(_select("content[licensor_id]"), $licensorval2);
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"),$seasonnumbval2);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"),$episodenumbval2);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			
+			create();
+			_wait(1000);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+}
+		
+function verifyTitleInfoSeason($licensorval2,$seasonnumbval2,$episodenumbval2) 
+{
+		//verify the season value on the page				
+		_stopOnError();
+			try
+			{			
+			
+				_wait(1000);
+				//verify the season value on the page
+			
+				var $matchseacID = $cid + $contentID2;
+				var $compareid = _getText(_div("span7"));
+			
+				_assertEqual($matchseacID, $compareid);
+				_assertExists(_div($mediatypeseason));
+			    
+			    
+				_assertEqual($seriestitleval, _getText(_link($seriestitleval)));	
+				
+				_assertEqual($licensorval2, _getSelectedText(_select("content[licensor_id]")));
+				_assertEqual($seasonnumbval2, _getValue(_textbox("content[tv_show_attributes][tv_show_sequence]")));
+				_assertEqual($episodenumbval2, _getValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]")));
+				_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			
+				_assertEqual($contentID2, _getText(_cell($contentID2)));
+			
+				//_assertExists(_div($tfsavevalue));
+			
+				//testRegularDate();
+			
+				$episodetotalof ="0 of ";
+		   		$ttlepisodeof = $episodetotalof + $episodenumbval2;
+		   	
+		   		_assertExists(_cell($ttlepisodeof));
+		   	
+		   		$concEpisodeof = $textEpisodeof + 0 +$textof + $episodenumbval2;
+				_assertExists(_heading4($concEpisodeof));
+			
+				$concattitle2 = $seriestitleval+':'+' '+$tseasontitleval;
+		
+		    	_assertExists(_link($concattitle2));
+		   		_assertExists($vbaddepisode);
+		
+			}//end of try
+				
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+
+function createTitleInfoSeasonMin($licensorval2,$episodenumbval2)
+{
+
+	_stopOnError();
+		try
+		{			
+			createTitleInfoSeries($seriestitleval,$licensorval2);
+			_wait(1000);
+			
+			if(!_exists(_textbox(1)))
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddseason);
+			_wait(1000);	
+			
+			$contentID2 = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID2, _getValue(_textbox("content[content_id]")));
+				
+			_assertEqual("TV Season", _getValue(_textbox("content[media_type]")));
+			_setSelected(_select("content[licensor_id]"), $licensorval2);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), $episodenumbval2);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+		
+			create();
+			_wait(1000);
+			//erroronSeasonMin();
+			
+			}//end of try
+			
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+function erroronSeasonMin()
+{
+	_assertExists(_div("[\"Tv show tv show sequence must be a numeric value.\", \"Title cannot be blank.\", \"Content failed minumum requirements to persist.\"]"));
+
+}
+
+function erroronTVShowValue()
+{
+	_assertExists(_div("[\"Tv show tv show sequence must be a numeric value.\"]"));
+}
+
+
+function createTitleInfoSeasonDupe($licensorval2,$seasonnumbval2,$episodenumbval2)
+{
+
+		_stopOnError();
+		try
+		{
+		
+			//now create another dupe season
+			_click($linkheadseries);
+			
+			if(!_exists($vbaddseason))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddseason);
+			
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $seasonnumbval2);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"),$episodenumbval2);
+			_setSelected(_select("content[tv_show_attributes][tv_network]"), $licensorval2);
+				
+			_click($vbcreate);
+			_wait(1000);	
+			
+			/*if(_exists($linkdupeseason))	
+			{
+			  _takeSnapShots(true);
+			}
+			_continueOnError(); */
+
+		}//end of try
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function createTitleInfoEpisode($episodenumbval3, $licensorval2, $seasonnumbval2, $episodenumbval2)
+{
+	_stopOnError();
+		try
+		{
+		   
+            //createTitleInfoEpisode("11","WB","1","10");
+			//createTitleInfoSeason($licensorval2,$seasonnumbval2,"10");
+			createTitleInfoSeason($licensorval2,$seasonnumbval2,$episodenumbval2);
+			verifyTitleInfoSeason($licensorval2,$seasonnumbval2,$episodenumbval2); 
+			
+			_wait(2000);
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddepisode);	
+			
+			$contentID3 = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID3, _getValue(_textbox("content[content_id]")));
+			
+			_assertEqual("TV Episode", _getValue(_textbox("content[media_type]")));
+			_setSelected(_select("content[licensor_id]"),$licensorval2);
+								  
+		 	_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $episodenumbval3);
+		    _assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertEqual($licensorval2, _getSelectedText(_select("content[licensor_id]")));
+			
+			create();
+		    _wait(1000);
+		    //verify landing on the season page by verify the ID is season ID 
+			$matchseacID = $cid + $contentID2;
+			$compareid = _getText(_div("span7"));
+		    _assertEqual($matchseacID, $compareid);
+		    
+		    if($episodenumbval3 <= $episodenumbval2)
+		    {
+		    	
+		    	_click($linkdupeepisode);
+		    
+		  	}
+		  	else
+		  	{
+		  	  
+		  	}
+	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+
+function verifyCreateEpisode($episodenumbval3, $licensorval2, $seasonnumbval2, $episodenumbval2)
+{
+		_stopOnError();
+		try
+		{
+			var $matchepID = $cid + $contentID3;
+			var $compareid = _getText(_div("span7"));
+			_assertEqual($matchepID, $compareid);
+		   	_assertExists(_div($mediatypeepisode));
+			_assertEqual($seasonnumbval2, _getValue(_textbox("content[tv_show_attributes][tv_show_sequence]")));
+				
+			//verify episode table on the page
+			$concEpisodeof1 = $textEpisodeof + 1 +$textof + $episodenumbval2;
+			
+			_assertExists(_heading4($concEpisodeof1));		
+			$concattitle3 = $seriestitleval+':'+' '+$tseasontitleval + $tepisodetitleval;
+			_assertExists(_link($concattitle3));
+
+		}
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function erroronCheckEpisodenum()
+{
+	_assertExists(_div("[\"Episode number cannot be higher than the number of episodes in the season.\", \"Content failed minumum requirements to persist.\"]"));
+}
+
+function createTitleInfoEpisodeMin()
+{
+	_stopOnError();
+		try
+		{
+
+			createTitleInfoSeason("WB","1","10");
+			_wait(1000);
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddepisode);	
+			_assertEqual("TV Episode", _getValue(_textbox("content[media_type]")));
+			_setSelected(_select("content[licensor_id]"), "WB");
+			
+			_assertEqual("1", _getValue(_textbox("content[season]")));
+			_setValue(_textbox("content[tv_show_attributes][TV_show_sequence]"), $episodenumbval3);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			create();
+		
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+
+function createTitleInfoEpisodeDupe($episodenumbval3)
+{
+
+		_stopOnError();
+		try
+		{
+		   	_click($linkheadseason);
+			if(!_exists($vbaddepisode))	
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbsave);
+			_wait(2000);
+				
+			_click($vbaddepisode);
+			
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $episodenumbval3);
+			
+			_click($vbcreate);
+	
+		}//end of try
+		
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+function erroronEmptyfield()
+{
+ 	_assertExists(_div("[\"Tv show tv show sequence must be a numeric value.\", \"Title cannot be blank.\", \"Content failed minumum requirements to persist.\"]"));
+}
+
+
+function createTitleInfoSeriesAll($seriestitleval,$licensorval1,$tvnetworkval,$releaseyearval,$genreval,$ratingsystemval,$ratingval,$ratingreasonval,$ratingcopyval,$productionval,$longsynval)
+{
+	_stopOnError();
+		try
+		{
+			
+			_click($vlnewseries);
+			_wait(1000);
+			if((_getValue(_textbox("content[media_type]"))) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID, _getValue(_textbox("content[content_id]")));
+			_assertEqual("TV Series", _getValue(_textbox("content[media_type]")));
+			_setValue(_textbox("content[title]"), $seriestitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			
+	
+			_setSelected(_select("content[tv_show_attributes][tv_network]"),$tvnetworkval);
+			_setValue(_textbox("content[release_year]"), $releaseyearval);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+
+		
+			_wait(1000);
+			
+			_setValue(_textbox("content[genres_string]"),$genreval);
+			_setSelected(_select("content[rating_system]"), $ratingsystemval);
+			_setSelected(_select("content[rating]"), $ratingval);
+			
+			_setValue(_textbox("content[rating_reason]"), $ratingreasonval);
+			_setValue(_textbox("content[copyright]"), $ratingcopyval);
+			_setValue(_textbox("content[production_company_attributes][production_name]"), $productionval);
+			_setValue(_textbox("content[short_synopsis]"), $shortsynval);
+			_setValue(_textarea("content[long_synopsis]"), $longsynval);
+
+	     	create();
+		
+		}//end of try
+	
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();		
+		
+
+}//end of function
+
+function verifyTitleInfoSeriesAll($seriestitleval,$licensorval1,$tvnetworkval,$releaseyearval,$genreval,$ratingsystemval,$ratingval,$ratingreasonval,$ratingcopyval,$productionval,$longsynval)
+{
+ 	_stopOnError();
+		try
+		{
+
+			_assertEqual($licensorval1, _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual($tvnetworkval, _getSelectedText(_select("content[tv_show_attributes][tv_network]")));
+			_assertEqual($releaseyearval, _getValue(_textbox("content[release_year]")));
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertExists($vbaddseason);
+
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+	//verify that the fields value on the metadata title info page		
+	
+	_stopOnError();
+		try
+		{
+		    _click($vlmetadata);
+			if (!_exists($vbupdatemetadata))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_assertEqual($genreval, _getValue(_textbox("content[genres_string]")));
+			
+			//_assertEqual("TV", _getSelectedText(_select("content[rating_system]")));
+			_wait(1000);
+			_assertEqual($ratingsystemval, _getSelectedText(_select("content[rating_system]")));
+			
+			_assertEqual($ratingval, _getSelectedText(_select("content[rating]")));
+			_assertEqual($ratingreasonval, _getValue(_textbox("content[rating_reason]")));
+			_assertEqual($ratingcopyval, _getValue(_textbox("content[copyright]")));
+			_assertEqual($productionval, _getValue(_textbox("content[production_company_attributes][production_name]")));
+			_assertEqual($longsynval, _getValue(_textarea("content[long_synopsis]")));
+		
+		}
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();		
+}
+
+function erroronInvReleaseyear()
+{
+	_assertExists(_div("[\"Release year must be between 1880 and 2030.\"]"));
+}
+
+function createTitleInfoSeasonAll($seasonnumbval2,$episodenumbval2,$estexidval,$exidval)
+{
+
+		_stopOnError();
+		try
+		{			
+			
+			_click($vbaddseason);
+			_wait(2000);
+			
+			//check prepopulated field on the Season page
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"),$seasonnumbval2);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"),$episodenumbval2);
+			
+			_assertEqual("SONY", _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual("WB", _getSelectedText(_select("content[tv_show_attributes][tv_network]")));
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertEqual("Motorsports, Mountain biking", _getValue(_textbox("content[genres_string]")));
+			
+			_assertEqual("TVG", _getSelectedText(_select("content[rating]")));
+			_assertEqual("TV", _getSelectedText(_select("content[rating_system]")));
+			_assertEqual("TestRatingReasonVal", _getValue(_textbox("content[rating_reason]")));
+			_assertEqual("TestCopyRight", _getValue(_textbox("content[copyright]")));
+			_assertEqual("TestProductioval", _getValue(_textbox("content[production_company_attributes][production_name]")));
+			
+		
+			_setValue(_textbox("content[est_external_id]"), $estexidval);
+			_setValue(_textbox("content[external_id]"), $exidval);
+			create();
+			_wait(2000);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+		
+		//verify the season value on the page				
+		_stopOnError();
+			try
+			{			
+				_wait(1000);
+
+			if (!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			//_assertExists(_div(5));
+			_assertEqual($estexidval, _getValue(_textbox("content[est_external_id]")));
+			_assertEqual($exidval, _getValue(_textbox("content[external_id]")));			
+			_assertExists($vbaddepisode);
+	
+			}//end of try
+				
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+}
+
+
+function createTitleInfoEpisodeAll($seasonnumbval2,$episodenumbval2,$estexidval,$exidval,$uvidval,$alidval,$eidridval,$alphaidval)
+{
+
+		_stopOnError();
+		try
+		{			
+			
+			_click($vbaddepisode);
+			_wait(2000);
+			
+			//Add episode on the system
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"),$seasonnumbval2);
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"),$episodenumbval2);
+			
+			_assertEqual("SONY", _getSelectedText(_select("content[licensor_id]")));
+			_assertEqual("WB", _getSelectedText(_select("content[tv_show_attributes][tv_network]")));
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_assertEqual("Motorsports, Mountain biking", _getValue(_textbox("content[genres_string]")));
+			
+			_assertEqual("TVG", _getSelectedText(_select("content[rating]")));
+			_assertEqual("TV", _getSelectedText(_select("content[rating_system]")));
+			_assertEqual("TestRatingReasonVal", _getValue(_textbox("content[rating_reason]")));
+			_assertEqual("TestCopyRight", _getValue(_textbox("content[copyright]")));
+			_assertEqual("TestProductioval", _getValue(_textbox("content[production_company_attributes][production_name]")));
+			//_assertEqual("Testshortval", _getValue(_textbox("content[short_synopsis]")));
+		
+			_setValue(_textbox("content[est_external_id]"), $estexidval);
+			_setValue(_textbox("content[external_id]"), $exidval);
+		
+			_setValue(_textbox("content[uv_content_id]"),$uvidval);
+			_setValue(_textbox("content[alid]"),$alidval);
+			_setValue(_textbox("content[title_eidr]"),$eidridval);
+			_setValue(_textbox("content[alpha_eidr]"),$alphaidval);
+			create();
+			_wait(1000);
+			
+				
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+		
+		
+		_stopOnError();
+			try
+			{			
+				_wait(1000);
+
+			//_assertEqual("TV Episode", _getText(_span("TV Episode")));
+			_assertExists(_div("span7"));
+			_click($vlmetadata);
+			
+			_assertEqual("TV", _getSelectedText(_select("content[rating_system]")));
+			_assertEqual("TVG", _getSelectedText(_select("content[rating]")));
+			_assertEqual("TestRatingReasonVal", _getValue(_textbox("content[rating_reason]")));
+			_assertEqual("TestCopyRight", _getValue(_textbox("content[copyright]")));
+			_assertEqual("TestProductioval", _getValue(_textbox("content[production_company_attributes][production_name]")));
+			
+			_wait(1000);
+			
+			//click link episode for viewing episode page
+			_click($linkdupeepisode);
+			_wait(1000);
+			_assertExists(_div("Media Type: TV Episode"));
+			
+			//click link Seson for viewing season page
+			_click($linkheadseason);
+			_wait(1000);
+			_assertExists(_div("Media Type: TV Season"));
+			
+			//click link episode for viewng series page
+			_click($linkheadseries);
+			_wait(1000);
+			_assertExists(_div("Media Type: TV Series"));
+			
+			
+			}//end of try
+				
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+
+}
+
+
+function createRatingAdvisory($seriestitleval,$licensorval1,$ratingadvisory)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewseries);
+			_wait(1000);
+			
+			if((_getValue(_textbox("content[media_type]"))) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID, _getValue(_textbox("content[content_id]")));
+			_setValue(_textbox("content[title]"), $seriestitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			_setValue(_textbox("content[rating_advisory]"), $ratingadvisory);
+			
+			_wait(1000);
+			create();
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+		
+		//verify that the fields value on the series title info page	
+   		_stopOnError();
+		try
+		{
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+		_assertEqual($ratingadvisory, _getValue(_textbox("content[rating_advisory]")));			
+	
+		}//end of try		
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function erroronAdvisory()
+{
+	 _assertExists(_div("[\"Rating advisory must contain only D, S, L, or V\"]"));
+}
+
+
+
+function validateRuntimeEpisode($episodenumbval3,$runtimeval)
+{
+		_stopOnError();
+		try
+		{
+			createTitleInfoSeason("WB","1","10");
+			_wait(1000);
+			
+			if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vbaddepisode);	
+		 	
+		 	_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), $episodenumbval3);
+			_setValue(_textbox("content[runtime]"), $runtimeval);
+			
+			create();
+		    _wait(2000);
+		    
+		    if ($runtimeval < 180)
+		    {
+		    	_click(_link(12));
+		  	}
+		  	else
+		  	{
+		  		_assertExists($vbcreate);
+		  	
+		  	}
+	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function verifyRuntime($runtimeval)
+{
+	 _assertEqual($runtimeval, _getValue(_textbox("content[runtime]")));
+ 
+}
+
+function erroonRuntime()
+{
+	_assertExists(_div("[\"Runtime must be no more than 3 digits with no leading zeros.\"]"));
+}

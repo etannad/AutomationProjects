@@ -1,0 +1,576 @@
+_include("ThirdMetadata_Variable.sah");
+_include("AssetsRecords_Variable.sah");
+_include("TitleInfo_Variable_Movie.sah");
+_include("TitleInfoUpdate.sah")
+_include("Metadata_Variable.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+function helperSelectMatch()
+{
+	_click($lthirdpartymatch);
+	_click($thirpartydiv);
+	_click($bupdatematch);
+}
+
+function helperSelectNoMatch()
+{	
+	_click($lthirdpartymatch);
+	_click($dnomatch);
+	_click($bupdatematch);
+	_wait(1000);
+
+}
+
+function searchMovieMatch()
+{
+   		   
+	_stopOnError();
+		try
+		{
+		   _click($lfsearchresult);
+
+		 	if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			_click($lthirdpartymatch);
+		    
+		    var $thisID = getContentID();
+		    //found new match on the first match
+		   _assertContainsText($thisID, _div("span8[1]"));
+		   var $firstID = _getText($thirpartydiv);	  
+		   if(_exists($firstID)&&_exists($thisID))
+		   {
+		    	helperSelectMatch();
+		    	
+		    	_click($vlmetadata);
+		    	$cast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+		    	_assertExists($ssignnamecast);
+
+
+		    	_click($lcastcrew);
+		    	 if(!_exists($bcastcrew)) 
+		    	 {
+		    	 	_takeSnapShots(true);
+		    	 }
+		    	 _continueOnError();
+		    	 
+		    	 $castname = _link($actor + $cast1 + $sign);
+		    	 _assertExists($castname);
+		    	 //reset to update
+		   		 helperSelectMatch();
+		   }	      
+		   
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+} 
+			
+
+function getContentID()
+{
+  var $contentID = _getText(_div("span7"));
+  var $newcontentID = $contentID.replace("Content ID:",'')
+  return $newcontentID;
+  
+}
+
+
+function searchNoMatch()
+{
+		   
+	_stopOnError();
+		try
+		{
+		   	_click($lfsearchresult);
+		    _wait(5000);
+		 	if(!_exists(_div(9)))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($lthirdpartymatch);
+		
+		   		if(!_exists($firstID))
+		   		{
+		    		//click metadata tab an verify that no cast crew on it
+		    		_click($vlmetadata);
+		    		_wait(1000);
+		    	
+		    	    _assertEqual("", _getValue(_textbox(21)));
+		    		_wait(1000);
+		    	
+		    		//click on cast crew tab and verify no cast and crew on it
+		    		_click($lcastcrew);
+		    		_wait(1000);		    	
+		   		}
+		   		
+		   		else if(_exists($firstID))
+		   		{
+		   			_takeSnapShots(true);
+		   		}
+		   		_continueOnError();
+		   		
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function updateNoMatch()
+{
+		_stopOnError();
+		try
+		{
+		   _click($lfsearchresult);
+		   _wait(5000);
+		 
+		 	if(!_exists(_div(9)))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+				
+		   _click($lthirdpartymatch); 
+		   var $thisID = getContentID();
+		    
+	       //found new match on the first match
+		   _assertContainsText($thisID, _div("span8[1]"));
+		   
+		   var $firstID = _getText($thirpartydiv);
+		   //var $match = _assertEqual($thisID, $firstID, "Testing not passed");
+	
+		   if(_exists($bupdatematch))
+		   {
+		   		helperSelectNoMatch();
+		   		_click($vlmetadata);
+		      	_assertExists(_span("Name"));
+		      	_click($ltitleinfo);
+		   		_assertEqual("no_match", _getValue(_textbox("content[third_party_metadata_id]")));		   		
+		   }
+		   		
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+} 
+
+
+function updateTitleMatch()
+{
+	_stopOnError();
+		try
+		{
+			_click($lfsearchresult);
+		    _wait(5000);
+		 
+		 	if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			
+			//click on the metadata tab and check if the check mark button avail on cast crew
+			_click($vlmetadata);
+			_assertExists($ssignnamecast);
+			
+			//check on cast crew and verify there is a match first before we changed title
+			$cast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			_click($lcastcrew);
+			$castname = _link(new RegExp($actor + $cast1 + $sign));		
+			_assertExists($castname);
+			_click($castname);
+			_assertExists(_div("span12[9]"));
+			
+			//then change the title
+			_click($lthirdpartymatch);
+			_click(_div("span8[2]"));
+			_click($bupdatematch);
+					
+			//verify that cast crew now auto save due to the changes
+			_click($lcastcrew);
+			
+			
+			_click($castname);
+			
+			//check if we still see a match on the cast crew tab
+			if(_exists(_div($cast1)))
+			{
+				_takeSnapShots(true);
+			}
+			
+			else
+			{
+				_assertNotExists(_div($cast1));
+			 	//auto save is good
+			}
+			
+		 }//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function deletCastCrew()
+{
+	_stopOnError();
+		try
+		{
+			_click($lfsearchresult);
+			_wait(1000);
+			_click($vlmetadata);
+			
+ 			if(!_exists($ssignnamecast))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$cast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			//delete the cast crew 
+			{
+				_click(_italic("icon-minus"));
+			}
+
+			//save the changes
+			_click($vbupdatemetadata);
+
+			//go back to verify that it is deleted
+			_click($lcastcrew);
+
+			//if exist deleted cast do snapshot 
+			$castname = _link($actor + $cast1 + $sign);
+			
+			if(_exists($castname))
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			_click($vlmetadata);
+			
+			//compare the previous ui value with current value and if it is not equal that mean cast is deleted
+			$cast2 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+		    _assertNotEqual($cast1, $cast2, "Testing passed");
+				
+ }//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function addCastCrew($newcastcrew)
+{
+	_stopOnError();
+		try
+		{
+			
+			_click($vlmetadata);
+			_wait(1000);
+			
+ 			if(!_exists($ssignnamecast))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$cast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			$cast1field = _getValue(_textbox(24));
+			
+			if ($cast1field == "Actor")
+			//add the cast crew 
+			{
+				_setValue(_textbox(21),$newcastcrew);
+			}
+			//save the changes
+			_click($vbupdatemetadata);
+
+			//go back to verify that it is added
+			_click($lcastcrew);
+
+			//if not exist added cast do snapshot 
+			$castname2 = _link($actor + $newcastcrew + $sign);
+			
+			//$castname2 = _link($actor + $cast1 + $sign);
+			if(!_exists($castname2))
+			{
+				_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_click($vlmetadata);
+			
+			//compare the previous ui value with current value and if it is not equal that mean cast is deleted
+			$cast2 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+		    _assertNotEqual($cast1, $cast2, "Testing passed");
+	
+ }//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function swapCastCrew()
+{
+	_stopOnError();
+		try
+		{
+			
+			_click($lfsearchresult);
+			_click($vlmetadata);
+			_wait(1000);
+			
+			//verify after save landing on the meta data tab page
+			if(!_exists($tgenres))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			//check if you have at least 3 actors on the metadata page
+			//$scast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_type]"));
+			$scast1	= _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			
+			//$scast2 = _getValue(_textbox("content[cast_crews_attributes][1][crew_type]"));
+			$scast2	= _getValue(_textbox("content[cast_crews_attributes][1][crew_name]"));
+			
+			//$scast3 = _getValue(_textbox("content[cast_crews_attributes][2][crew_type]"));
+			$scast3	= _getValue(_textbox("content[cast_crews_attributes][2][crew_name]"));
+			
+			if(!_exists($ssignnamecast))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$ecast1	= _assertEqual("Actor", _getValue(_textbox("content[cast_crews_attributes][0][crew_type]")));
+			$ecast2 = _assertEqual("Actor", _getValue(_textbox("content[cast_crews_attributes][1][crew_type]")));
+			$ecast3	= _assertEqual("Actor", _getValue(_textbox("content[cast_crews_attributes][2][crew_type]")));
+			
+ 			if(!_exists($ecast1 && $ecast2 && $ecast3))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			//swap the name of the cast 
+			_setValue(_textbox("content[cast_crews_attributes][0][crew_name]"), $scast3);
+			_setValue(_textbox("content[cast_crews_attributes][2][crew_name]"), $scast1);
+			
+			//save it
+			_click($vbupdatemetadata);
+			
+			//check on cast crew tab			
+			_click($lcastcrew);
+			//the first cast crew name #1 now become cast crew name #3
+			$ncast3 = _link(new RegExp($actor + $scast3 + $sign));
+			$ncast1 = _link(new RegExp($actor + $scast1 + $sign));
+		
+			_assertExists($ncast3, _getText(_link(28)));
+			_assertExists($ncast1, _getText(_link(30)));
+			
+			//now verify the cast is autosave
+			_click(_link(28));
+			_assertExists(_strong($scast3));
+			
+			_click(_link(30));
+			_assertExists(_strong($scast1));
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+
+}
+
+function modifyCastCrew($modifycast)
+{
+	_stopOnError();
+			try
+			{
+		   		_click($lfsearchresult);
+				_click($vlmetadata);
+							
+ 				if(!_exists($ssignnamecast) && ($tgenres))
+				{
+		 			_takeSnapShots(true);
+				}
+				_continueOnError();
+		
+		   		//var $firstuihascheck = _getText(_span(29));
+		   		//var $checkmark = "Name ✓";
+			     $cast1 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			     _click($vlmetadata);
+		   
+		      	//now go to cast crew tab and verify the match exists
+		      	_click($lcastcrew);	   			
+		      	$castname1 = _link(new RegExp($actor + $cast1 + $sign));
+		      	_click($castname1);
+		      	//_assertExists(_strong($cast1));
+		          
+		      	//now go and modify the name on the cast on the metadata page
+		      	_click($vlmetadata);
+		   		if(!_exists($tgenres))
+				{
+					_takeSnapShots(true);		
+				}
+				_setValue(_textbox("content[cast_crews_attributes][0][crew_name]"), $modifycast);
+				$cast2 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+				$castname2 = _link(new RegExp($actor + $cast2));
+				_click($vbupdatemetadata);
+				
+ }//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function verifyresetCastCrew($modifycast)
+{
+	//go back to verify that it is modified
+	_click($vlmetadata);
+	_wait(1000);
+	$cast2 = _getValue(_textbox("content[cast_crews_attributes][0][crew_name]"));
+	$castname2 = _link(new RegExp($actor + $cast2));
+	_click($lcastcrew);
+
+    _click($castname2);
+    _assertExists(_div("castcrew0"));
+    
+   _click($vlmetadata);
+    _stopOnError();
+			try
+			{ 
+				if(!_exists($tgenres))
+				{
+					_takeSnapShots(true);		
+				}
+				_continueOnError();
+				_setValue(_textbox("content[cast_crews_attributes][0][crew_name]"), $modifycast);
+				_click($vbupdatemetadata);
+			}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+ 
+}
+
+function noMatchIcon()
+{
+       	_click(_link("300"));
+		_stopOnError();
+		try
+		{
+		 	if(!_exists(_div("span7")))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError(); 	 
+	  	 	
+			_click($lcastcrew);
+			_click(_link("Writer Jon Schroeder"));
+			_wait(1000);
+			_click(_div("no_match[3]"));
+			_wait(1000);
+			_click($bcastcrew);
+			_wait(1000);
+			_click($lcastcrew);
+		
+		if(!_exists($lsignnomatch))
+		{
+			_takeSnapShots(true);
+		}
+		_continueOnError();
+		_assertExists(_link("Writer Jon Schroeder ✗"));
+		_click($vlmetadata);
+		_assertExists(_span("Name ✗"));
+		}//end of try
+				
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function resetNoMatchIcon()
+{
+   	_click($lcastcrew);
+	_click(_link("Writer Jon Schroeder ✗"));
+	//no match tab on cast crew
+	_click(_div("span12[11]"));
+	_wait(1000);
+	_click($bcastcrew);
+	_wait(1000);
+	_click($lcastcrew);
+	_assertExists(_link("Writer Jon Schroeder"));
+	_click($vlmetadata);
+	_wait(1000);
+	_assertExists(_span("Name"));
+	
+	
+}
+
+function resetUpdateTitle()
+{
+
+		_stopOnError();
+		try
+		{
+			_click($lthirdpartymatch);
+			if(!_exists($bupdatematch))
+			{
+		 		_takeSnapShots(true);
+			}
+			
+			_click($thirpartydiv);
+			_click($bupdatematch);		
+			_assertExists($ltitleinfo);
+		}
+		
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+

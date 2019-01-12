@@ -1,0 +1,29 @@
+_include("../../TrackingPage.sah");
+_include("../../TrackingNewSource.sah");
+_include("../../TrackingNewSource_Variable.sah");
+_include("../../TitleInfo_Variable_Movie.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoMovie($movietitleval, "SONY");
+
+create();
+
+trackNotRequested("video Req");
+
+verifyNotRequested("video Req");
+
+trackNotRequested("trailer Req");
+
+verifyNotRequested("trailer Req");
+
+trackNotRequested("captions Req");
+
+verifyNotRequested("captions Req");
+
+
+

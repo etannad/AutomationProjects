@@ -1,0 +1,423 @@
+_include("TitleInfo_Variable_Movie.sah");
+_include("TitleInfoUpdate.sah")
+_include("Metadata_Variable.sah");
+_include("TitleInfo_Variable_Season.sah");
+_include("TitleInfo_Variable_Episode.sah");
+_include("TitleInfo_Variable_Series.sah");
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("LoginPage.sah");
+
+
+function createMultipleCastCrew($seriestitleval,$licensorval1,$tvnetworkval,$genreval,$actor1val,$actor2val,$director1val,$director2val,$producer1val,$producer2val,$writer1val,$writer2val)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewseries);
+			_wait(1000);
+			if((_getValue(_textbox("content[media_type]"))) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID, _getValue(_textbox("content[content_id]")));
+			_assertEqual("TV Series", _getValue(_textbox("content[media_type]")));
+			_setValue(_textbox("content[title]"), $seriestitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			_setSelected(_select("content[tv_show_attributes][tv_network]"),$tvnetworkval);
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			
+			_wait(1000);
+			//additional field fields are added in here
+			_setValue(_textbox("content[genres_string]"),$genreval);
+		
+            //additional cast and crew fields are added in here
+            helperCreateMulticast();		
+			create();
+		
+		}//end of try
+	
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();		
+
+		
+	//verify metadata page value only cast and crew				
+			
+		_stopOnError();
+		try
+		{
+		   _click($vlmetadata);
+			if (!_exists($vbupdatemetadata))
+			{
+		 		_takeSnapShots(true);
+			}
+			_assertEqual($genreval, _getValue(_textbox("content[genres_string]")));
+			
+			_assertEqual($actor1val, _getValue(_textbox(10)));
+			_assertEqual($actor2val, _getValue(_textbox(12)));
+			
+			_assertEqual($director1val, _getValue(_textbox(14)));
+			_assertEqual($director2val, _getValue(_textbox(16)));
+			
+			_assertEqual($producer1val, _getValue(_textbox(18)));
+			_assertEqual($producer2val, _getValue(_textbox(20)));
+			
+			_assertEqual($writer1val, _getValue(_textbox(22)));
+			_assertEqual($writer2val, _getValue(_textbox(24)));
+			_continueOnError();
+			
+		}//end of try
+		
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError(); 
+			
+		//now verify if it pre-populated on the Season 		
+	
+		_stopOnError();
+		try
+		{
+		 	_click($vbaddseason);	
+		 	
+			if (!_exists($vbcreate))
+			{
+		 		_takeSnapShots(true);
+			}
+			
+			_assertEqual($actor1val, _getValue(_textbox(21)));
+			_assertEqual($actor2val, _getValue(_textbox(23)));
+			_assertEqual($director1val, _getValue(_textbox(25)));
+			_assertEqual($director2val, _getValue(_textbox(27)));
+			_assertEqual($producer1val, _getValue(_textbox(29)));
+			_assertEqual($producer2val, _getValue(_textbox(31)));
+			_assertEqual($writer1val, _getValue(_textbox(33)));
+			_assertEqual($writer2val, _getValue(_textbox(35)));
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), "5");
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), "9");
+			_click($vbcreate);
+			
+			_continueOnError();
+		}//end of try	
+				
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();		 
+		
+	//now verify if it pre-populated on the Episode
+
+		_stopOnError();
+		try
+		{
+		 	_click($vbaddepisode);
+		 	
+			if (!_exists($vbcreate))
+			{
+		 		_takeSnapShots(true);
+			}
+			_assertEqual($actor1val, _getValue(_textbox(21)));
+			_assertEqual($actor2val, _getValue(_textbox(23)));
+			_assertEqual($director1val, _getValue(_textbox(25)));
+			_assertEqual($director2val, _getValue(_textbox(27)));
+			_assertEqual($producer1val, _getValue(_textbox(29)));
+			_assertEqual($producer2val, _getValue(_textbox(31)));
+			_assertEqual($writer1val, _getValue(_textbox(33)));
+			_assertEqual($writer2val, _getValue(_textbox(35)));
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), "5");
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), "9");
+			_click($vbcreate);
+			_continueOnError();
+			
+		}//end of try	
+				
+		catch(e)
+		{
+			_logException(e);
+		}
+			_continueOnError();		
+						
+}
+
+
+function deleteMultipleCastCrew($seriestitleval,$licensorval1,$tvnetworkval,$genreval,$actor1val,$actor2val,$director1val,$director2val,$producer1val,$producer2val,$writer1val,$writer2val)
+{
+
+	_stopOnError();
+		try
+		{
+			_click($vlnewseries);
+			_wait(1000);
+			if((_getValue(_textbox("content[media_type]"))) != "TV Series")
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			$contentID = _getValue(_textbox("content[content_id]"));
+			_assertEqual($contentID, _getValue(_textbox("content[content_id]")));
+			_assertEqual("TV Series", _getValue(_textbox("content[media_type]")));
+			_setValue(_textbox("content[title]"), $seriestitleval);
+			_setSelected(_select("content[licensor_id]"), $licensorval1);
+			_setSelected(_select("content[tv_show_attributes][tv_network]"),$tvnetworkval);
+
+			_assertEqual("US", _getSelectedText(_select("content[territory]")));
+			
+			_wait(1000);
+			//additional field fields are added in here
+			_setValue(_textbox("content[genres_string]"),$genreval);
+		
+            //additional cast and crew fields are added in here
+	     	helperCreateDoubleMulticasts();
+	        
+	        create();
+		
+		}//end of try
+	
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();		
+
+
+		//now do delete on the multi-castcrew on the page	
+
+		_stopOnError();
+		try
+		{
+		   _click($vlmetadata);
+			if (!_exists($vbupdatemetadata))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			//delete actor
+			helperDeleteMulticast();
+			
+		_click($vbupdatemetadata);
+		_wait(2000);
+			
+		}//end of try
+		
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+	
+
+		//verify metadata page value only cast and crew	on Season Page			
+	
+		_stopOnError();
+		try
+		{
+		   _click($vlmetadata);
+		  
+			if (!_exists($vbupdatemetadata))
+			{
+		 		_takeSnapShots(true);
+			}
+			_assertEqual($genreval, _getValue(_textbox("content[genres_string]")));
+			_click($vbaddseason);
+			_assertExists(_textbox("content[cast_crews_attributes][0][crew_name]"));
+			_assertExists(_italic("icon-minus"));
+			_assertExists(_textbox("content[cast_crews_attributes][1][crew_name]"));
+			_assertExists(_italic("icon-minus[1]"));
+			_assertExists(_textbox("content[cast_crews_attributes][2][crew_name]"));
+			_assertExists(_italic("icon-minus[2]"));
+			
+			_assertExists(_textbox("content[cast_crews_attributes][3][crew_name]"));
+			_assertExists(_italic("icon-minus[3]"));
+			_assertExists(_textbox("content[cast_crews_attributes][4][crew_name]"));
+			_assertExists(_italic("icon-minus[4]"));
+			_assertExists(_textbox("content[cast_crews_attributes][5][crew_name]"));
+			_assertExists(_italic("icon-minus[5]"));
+			
+			_assertExists(_textbox("content[cast_crews_attributes][6][crew_name]"));
+			_assertExists(_italic("icon-minus[6]"));
+			_assertExists(_textbox("content[cast_crews_attributes][7][crew_name]"));
+			_assertExists(_italic("icon-minus[7]"));
+			_assertExists(_textbox("content[cast_crews_attributes][8][crew_name]"));
+			_assertExists(_italic("icon-minus[8]"));
+			
+			_assertExists(_textbox("content[cast_crews_attributes][9][crew_name]"));
+			_assertExists(_italic("icon-minus[9]"));
+			_assertExists(_textbox("content[cast_crews_attributes][10][crew_name]"));
+			_assertExists(_italic("icon-minus[10]"));
+			_assertExists(_textbox("content[cast_crews_attributes][11][crew_name]"));
+			_assertExists(_italic("icon-minus[11]"));
+			
+			helperDeleteMulticastSeason();
+			_setValue(_textbox("content[tv_show_attributes][tv_show_sequence]"), "9");
+			_setValue(_textbox("content[tv_show_attributes][catalog_episode_total_count]"), "9");
+			_click($vbcreate);
+			_click($vbaddepisode);
+			
+			_continueOnError();
+			
+		}//end of try
+		
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError();
+
+	//verify metadata page value only cast and crew	on Episode Page	
+
+
+	_stopOnError();
+		try
+		{		
+							
+		_assertExists(_textbox("content[cast_crews_attributes][0][crew_name]"));
+		_assertExists(_italic("icon-minus"));
+		_assertExists(_textbox("content[cast_crews_attributes][1][crew_name]"));
+		_assertExists(_italic("icon-minus[1]"));
+		_assertExists(_textbox("content[cast_crews_attributes][2][crew_name]"));
+		_assertExists(_italic("icon-minus[2]"));
+	
+		_assertExists(_textbox("content[cast_crews_attributes][3][crew_name]"));
+		_assertExists(_italic("icon-minus[3]"));
+		_assertExists(_textbox("content[cast_crews_attributes][4][crew_name]"));
+		_assertExists(_italic("icon-minus[4]"));
+		_assertExists(_textbox("content[cast_crews_attributes][5][crew_name]"));
+		_assertExists(_italic("icon-minus[5]"));
+
+		_assertExists(_textbox("content[cast_crews_attributes][6][crew_name]"));
+		_assertExists(_italic("icon-minus[6]"));
+		_assertExists(_textbox("content[cast_crews_attributes][7][crew_name]"));
+		_assertExists(_italic("icon-minus[7]"));
+		_continueOnError();
+			
+		}//end of try
+		
+			catch(e)
+			{
+				_logException(e);
+			}
+			_continueOnError(); 
+	
+}
+
+function helperDeleteMulticast()
+{
+
+	_click(_italic("icon-minus[3]"));
+	_wait(1000);
+	_click(_italic("icon-minus[7]"));
+	_wait(1000);
+	_click(_italic("icon-minus[11]"));
+	_wait(1000);
+	_click(_italic("icon-minus[14]"));
+
+}
+
+function helperDeleteMulticastSeason()
+{
+
+	_click(_italic("icon-minus[2]"));
+	_wait(1000);
+	_click(_italic("icon-minus[5]"));
+	_wait(1000);
+	_click(_italic("icon-minus[8]"));
+	_wait(1000);
+	_click(_italic("icon-minus[10]"));
+
+
+}
+function helperCreateMulticast()
+{
+			_setValue(_textbox(21), $actor1val);
+	     	_click(_link(4));
+	        _wait(1000);
+	        _setValue(_textbox(23), $actor2val);
+	        _wait(2000);
+	        
+			_setValue(_textbox(25), $director1val);
+			 _click(_link(6));
+			 _wait(2000);
+	        _setValue(_textbox(27), $director2val);
+	        _wait(2000);
+	     
+	     	_setValue(_textbox(29), $producer1val);
+			_click(_link(8));
+			 _wait(1000);
+			_setValue(_textbox(31), $producer2val);
+	        _wait(2000);		
+	
+			_setValue(_textbox(33), $writer1val);
+			_click(_link(10));
+			_wait(1000);
+			_setValue(_textbox(35), $writer2val);
+     		 _wait(2000);	
+}
+
+function helperCreateDoubleMulticasts()
+{
+			_setValue(_textbox(21), $actor1val);
+	     	_click(_link(4));
+	        _wait(1000);
+	        _setValue(_textbox(23), $actor2val);
+	        _wait(2000);
+	        
+			_setValue(_textbox(25), $director1val);
+			 _click(_link(6));
+			 _wait(2000);
+	        _setValue(_textbox(27), $director2val);
+	        _wait(2000);
+	     
+	     	_setValue(_textbox(29), $producer1val);
+			_click(_link(8));
+			 _wait(1000);
+			_setValue(_textbox(31), $producer2val);
+	        _wait(2000);		
+	
+			_setValue(_textbox(33), $writer1val);
+			_click(_link(10));
+			_wait(1000);
+			_setValue(_textbox(35), $writer2val);
+     		 _wait(2000);	
+     	
+     		 
+     		_click(_link(5));
+     		_setValue(_textbox(25), "TestActorlast");
+     		_wait(1000);
+     		_click(_link(6));
+     		_setValue(_textbox(27), "TestActorlast1");
+     		_wait(1000);
+
+     		_click(_link(9));
+     		_setValue(_textbox(33), "Directorlast");
+     		_wait(1000);
+     		_click(_link(10));
+     		_setValue(_textbox(35), "Directorlast1");
+     		_wait(1000);
+     		
+     		_click(_link(13));
+     		_setValue(_textbox(41), "Producerlast");
+     		_wait(2000);
+     		_click(_link(14));
+     		_setValue(_textbox(43), "Producerlast1");
+     		_wait(2000);
+     		
+     		_click(_link(17));
+     		_setValue(_textbox(49), "Writerlast");
+     		_wait(2000);
+     		_click(_link(18));
+     		_setValue(_textbox(51), "Writerast1");
+     		_wait(2000); 
+}
+
+

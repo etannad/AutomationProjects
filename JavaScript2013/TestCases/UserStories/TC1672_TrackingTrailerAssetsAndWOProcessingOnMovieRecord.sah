@@ -1,0 +1,86 @@
+_include("../../TrackingPage.sah");
+_include("../../TrackingNewSource.sah");
+_include("../../TrackingNewSource_Variable.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Movie.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoMovie($movietitleval, "SONY");
+
+create();
+
+
+// *******************************************************************************
+// TRACKING VIDEO ASSET AND WO PROCESS
+// *******************************************************************************
+
+//State 1
+trackNotRequested("video Req");
+trackAssetRequested("video Req", "Set Ordered Date", "Mar","1");
+trackWORequestNull("Set WO Workflow Status Date", "Mar","1");
+verifyAssetRequWOStatusNull("video Req");
+
+//State 2
+trackWOReqTobeStarted("video Req","To Be Started");
+verifyAssetReqTobeStarted("video Req");
+
+//State 3
+trackAssetDelivered("video Req","Set Received Date","May","1");
+trackWOReqSetDelReq("video Req","Set WO Delivery Request Date","May","1");
+trackWOReqToTransfer("video Req","Transfer");
+verifyAssetDelWOTransfer("video Req");
+
+//State 4
+trackAssetBilled("video Req","Set Billed Date","Jun","1");
+trackWOBilled("video Req","Set WO Billed Date","Jun","15");
+verifyAssetDelWOTransfer("video Req");
+
+//State 5
+trackAssetPay("video Req","Set Payment Date","Aug","31");
+trackWOPay("video Req","Set WO Payment Date","Aug","1");
+trackWOCompleted("video Req","Completed");
+verifyAssetCompWOComp("video Req");
+
+
+// *******************************************************************************
+// TRACKING TRAILER ASSET AND WO PROCESS
+// *******************************************************************************
+
+
+//State 1
+trackNotRequested("trailer Req");
+trackAssetRequested("trailer Req", "Set Ordered Date", "Mar","1");
+trackWORequestNull("Set WO Workflow Status Date", "Mar","1");
+verifyAssetRequWOStatusNull("trailer Req");
+
+
+//State 2
+trackWOReqTobeStarted("trailer Req","To Be Started");
+verifyAssetReqTobeStarted("trailer Req");
+
+
+//State 3
+trackAssetDelivered("trailer Req","Set Received Date","May","1");
+trackWOReqSetDelReq("trailer Req","Set WO Delivery Request Date","May","1");
+trackWOReqToTransfer("trailer Req","Transfer");
+verifyAssetDelWOTransfer("trailer Req");
+
+
+//State 4
+trackAssetBilled("trailer Req","Set Billed Date","Jun","1");
+trackWOBilled("trailer Req","Set WO Billed Date","Jun","15");
+verifyAssetDelWOTransfer("trailer Req");
+
+
+//State 5
+trackAssetPay("trailer Req","Set Payment Date","Aug","31");
+trackWOPay("trailer Req","Set WO Payment Date","Aug","1");
+trackWOCompleted("trailer Req","Completed");
+verifyAssetCompWOComp("trailer Req");
+
+

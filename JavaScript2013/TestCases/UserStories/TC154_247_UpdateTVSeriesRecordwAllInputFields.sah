@@ -1,0 +1,21 @@
+_include("../../MetadataCreate.sah");
+_include("../../Metadata_Variable.sah");
+_include("../../TitleInfoDelete.sah");
+_include("../../TitleInfo_Variable_Season.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Series.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoSeriesAll($seriestitleval,"WB","WB","2009","Motorsports, Mountain biking","TV","TVG","TestRatingReasonVal","TestCopyRight","TestProductioval","TestLongval");
+updateTitleInfoSeries($seriestitleval1a,"SONY","test comment");
+
+createTitleInfoSeasonAll("1","10",$estexidval,$exidval);
+updateTitleInfoSeason("SONY","2","11");
+
+createTitleInfoEpisodeAll("1","10",$estexidval,$exidval,$uvidval,$alidval,$eidridval,$alphaidval);
+

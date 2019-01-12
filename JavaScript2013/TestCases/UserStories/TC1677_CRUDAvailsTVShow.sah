@@ -1,0 +1,29 @@
+_include("../../Availability_Variable.sah");
+_include("../../AvailabilityPage.sah");
+_include("../../TitleInfo_Variable_Season.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Series.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoEpisode("1","WB","1","10");
+createFirstTVShow("EST","HD","TV Library","2.99");
+updateAvailRec();
+addAvailsicon();
+createSecdTVShow("EST","SD","TV Library","1.99");
+addAvailsicon();
+rmAvailsicon();
+editTVShowAvails("EST","SD","TV New Release - Day After","2.99");
+
+
+//now go to season to create avail on season
+createFirstTVShow("EST","HD","New Release","27.99");
+updateAvailRec();
+addAvailsiconSea();
+createSecdTVShow("EST","SD","New Release","19.99");
+addAvailsicon();

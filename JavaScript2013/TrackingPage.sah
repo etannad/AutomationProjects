@@ -1,0 +1,332 @@
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("TrackingNewSource.sah");
+_include("TrackingNewSource_Variable.sah");
+_include("TitleInfo_Variable_Episode.sah");
+
+function trackNotRequested($sourcetype)
+{
+	trackingTab();
+	setNotRequestAsset($sourcetype);
+	createTrackingReq();
+}
+
+function verifyNotRequested($sourcetype)
+{
+	verifyBadgeNotSet($sourcetype);
+}
+
+function trackAssetRequested($sourcetype,$setdatepicker,$month,$day)
+{
+	
+			if($sourcetype == "video Req")
+			{
+				_click($beditvid1);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+			   _click($bedittrail2);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				_click($beditcapt3);
+			}
+
+	
+		//edit asset request - setting order date only
+		editAssetRequest($setdatepicker,$month,$day); 
+	
+		//set MPM field
+		setAssetMPMID($mpmval3);
+	
+		//Setting PO field
+		setAssetPOID($poval3);
+
+}
+
+function trackWORequestNull($setdatepicker,$month,$day)
+{
+	
+	//set work order with null status
+	editWORequest($setdatepicker,$month,$day);
+	 
+	//update tracking status
+	updateTrackingReq();	
+}
+
+function verifyAssetRequWOStatusNull($sourcetype)
+{
+
+  		verifyBadgeRequestedWOEmpty($sourcetype);
+}
+
+function trackWOReqTobeStarted($sourcetype, $wflowstat)
+{
+
+			if($sourcetype == "video Req")
+			{
+				_click($beditvid1);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+			   _click($bedittrail2);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				_click($beditcapt3);
+			}
+	
+	//edit Work flow status
+	setWorkFlowStat($wflowstat); 
+	
+	//set WorkOder number field
+	setWOID($woval3);
+	
+	//update tracking status
+	updateTrackingReq();
+	
+}
+
+function verifyAssetReqTobeStarted($sourcetype)
+{
+	verifyBadgeReqWOToBeStarted($sourcetype);
+}
+
+
+function trackAssetDelivered($sourcetype,$setdatepicker,$month,$day)
+{
+	
+			if($sourcetype == "video Req")
+			{
+				_click($beditvid1);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+			   _click($bedittrail2);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				_click($beditcapt3);
+			}
+
+	//edit asset request to Delivered  - setting Received date
+	editAssetReqToDelvd($setdatepicker,$month,$day); 
+	
+	updateTrackingReq();
+	
+}
+
+
+
+function trackWOReqSetDelReq($sourcetype,$setdatepicker,$month,$day)
+{
+			if($sourcetype == "video Req")
+			{
+				_click($beditvid1);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+			   _click($bedittrail2);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				_click($beditcapt3);
+			}
+	
+	
+	editWODelReqDate($setdatepicker,$month,$day);
+
+	updateTrackingReq();
+	
+}
+
+
+function trackWOReqToTransfer($sourcetype,$wflowstat)
+{
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+	
+	
+	//edit Work flow status
+	setWorkFlowStat($wflowstat); 
+	
+	updateTrackingReq();
+	
+
+}
+
+function verifyAssetDelWOTransfer($sourcetype)
+{
+	verifyBadgeAssetDelWOTransfer($sourcetype);
+}
+
+
+function trackAssetBilled($sourcetype,$setdatepicker,$month,$day)
+{
+	
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+	
+	editAssetBilled($setdatepicker,$month,$day);
+	
+	//Setting Invoice field
+	setAssetInvID($invaval3);
+	
+	updateTrackingReq();
+}
+
+function trackWOBilled($sourcetype,$setdatepicker,$month,$day)
+{
+
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+
+	editWOBilled($setdatepicker,$month,$day);
+	
+	//Setting WO Invoice field
+	setWOInvoiceID($woinvval3)
+	
+	updateTrackingReq();
+
+}
+
+function trackAssetPay($sourcetype,$setdatepicker,$month,$day)
+{
+	
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+	
+
+	editAssetPay($setdatepicker,$month,$day);
+	
+	//Setting Asset Pay field
+	setAssetPayRefID($payrefval3);
+	
+	updateTrackingReq();
+	
+}
+
+function trackWOCompleted($sourcetype,$wflowstat)
+{
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+	
+	
+	//edit Work flow status
+	setWorkFlowStat($wflowstat); 
+	
+	updateTrackingReq();	
+
+}
+
+
+function trackWOPay($sourcetype,$setdatepicker,$month,$day)
+{
+	
+		if($sourcetype == "video Req")
+		{
+			_click($beditvid1);
+		}
+		
+		if($sourcetype == "trailer Req")
+		{
+		   _click($bedittrail2);
+		}
+			
+		if($sourcetype == "captions Req")
+		{
+			_click($beditcapt3);
+		}
+	
+	editWOPay($setdatepicker,$month,$day);
+	
+	//Setting WO Pay field
+	setWOPaymentID($wopayrefval3);
+	
+	updateTrackingReq();
+	
+}
+
+function verifyAssetCompWOComp($sourcetype)
+{
+	verifyBadgeAssetCompWOComp($sourcetype);
+}
+
+function commentTrackingTab()
+{
+	_click($beditvid1);
+	
+	setCommentTrackingTab();
+	
+	updateTrackingReq();
+	
+	verifyCommentTrackingTab($commentval1a);
+}	

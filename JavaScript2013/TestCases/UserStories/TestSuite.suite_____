@@ -1,0 +1,7 @@
+TC1574_CreateAvailsforMovie.sah
+TC1575_UpdateAvailsMovie.sah
+TC1576_CopyAvailsMovie.sah
+TC1577_DeleteAvailsRecrord.sah
+TC1675_VerifyWholesalePriceIsNotRequiredByVOD.sah
+TC1676_CheckBoxAndHistoryonAvailTab.sah
+TC1677_CRUDAvailsTVShow.sah

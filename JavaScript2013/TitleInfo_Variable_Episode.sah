@@ -1,0 +1,226 @@
+//http://rescmsqa-001.mgoint-naviqa.smf2.mobitv:9090/contents/1MV7ffcedb6a22f3d644a30b93ccdf11298/
+//all titleInfo UI variables
+
+$vlnewseries = _link("New Series");
+
+$vtmgocontentid = _textbox("technicolor_content_id");
+
+$vtlicensor = _textbox("licensor");
+
+$vttvtitle = _textbox("tv_title");
+
+$vtepisodenumb = _textbox("episode_number");
+
+$vtepisodename = _textbox("episode_name");
+
+$vtorgbrodcastd= _textbox("original_broadcast_date");
+
+$vtnetwork = _textbox("network");
+
+$vtreleasey = _textbox("release_year");
+
+$vtterritory = _textbox("territory");
+
+$vtestexid =_textbox("est_external_id");
+
+$vtexid =_textbox("external_id");
+
+$vtuvcontid =_textbox("uv_content_id");
+
+$vtalid =_textbox("alid");
+
+$vttitleeidr =_textbox("title_eidr");
+
+$vtalphaeidr =_textbox("alpha_eidr");
+
+$vbaddepisode = _submit("Add Episode");
+
+var $licensorval3 = null;
+
+var $broadcastval3 = null;
+
+var $episodenumbval3 = null;
+
+var $episodenameval3 = null;
+
+var $networkval3 = null;
+
+var $titlestatusval3 = null;
+
+var $ratingval3 = null;
+
+var $ratingsysval3 = null;
+
+var $casttypeval3a = null;
+
+var $casttypeval3b = null;
+
+
+function testRegularDate()
+{
+
+var $now1 = new Date();
+var $now2 = $now1.getTime() + ($now1.getTimezoneOffset() * 60000);
+
+// *******************************************************************************
+// WARNING: This timezone conversion doesn't make any daylight saving adjust
+// *******************************************************************************
+var $nowPST = new Date($now2 + (3600000*(-7)));
+
+var $currmonth = $nowPST.getMonth()+1;
+if ($currmonth<10){$currmonth = '0' +$currmonth;}
+
+var $currdate = $nowPST.getDate();
+if ($currdate<10) {$currdate ='0' +$currdate;}
+
+var $date1 =$currmonth+"/"+$currdate+"/"+$nowPST.getFullYear();
+
+var $cell1 = _cell(new RegExp($date1));
+_assertExists($cell1);
+}
+
+
+/*
+//generate time 
+function testRegularDate()
+{
+
+var $now1 = new Date();
+var $currmonth = $now1.getMonth()+1;
+if ($currmonth<10){$currmonth = '0' +$currmonth;}
+
+var $currdate = $now1.getDate();
+if ($currdate<10) {$currdate ='0' +$currdate;}
+
+var $date1 =$currmonth+"/"+$currdate+"/"+$now1.getFullYear();
+
+var $cell1 = _cell(new RegExp($date1));
+_assertExists($cell1);
+}*/
+
+
+//generate time on update fields
+/*
+function testLastUpdateDate()
+{
+var $now2 = new Date();
+//var $lsaveupdateval = $now2.getFullYear()+"-"+($now2.getMonth()+1)+"-"+$now2.getDate();
+
+var $updatemonth = $now2.getMonth()+1
+if ($updatemonth<10) {$updatemonth ='0' +$updatemonth;}
+
+var $updatedate =$now2.getDate();
+if ($updatedate<10) {$updatedate ='0' +$updatedate;}
+
+var $lsaveupdateval =$updatemonth+"/"+$updatedate+"/"+$now2.getFullYear()
+var $cell2 =_div(new RegExp($lsaveupdateval));
+
+_assertExists($cell2);
+
+}
+*/
+
+function testLastUpdateDate()
+{
+var $now = new Date();
+var $now2 = $now.getTime() + ($now.getTimezoneOffset() * 60000);
+
+// *******************************************************************************
+// WARNING: This timezone conversion doesn't take in consideration daylight saving
+// *******************************************************************************
+var $nowPST = new Date($now2 + (3600000*(-7)));
+
+//var $lsaveupdateval = $nowPST.getFullYear()+"-"+($nowPST.getMonth()+1)+"-"+$nowPST.getDate();
+
+var $updatemonth = $nowPST.getMonth()+1
+if ($updatemonth<10) {$updatemonth ='0' +$updatemonth;}
+
+var $updatedate =$nowPST.getDate();
+if ($updatedate<10) {$updatedate ='0' +$updatedate;}
+
+var $lsaveupdateval =$updatemonth+"/"+$updatedate+"/"+$nowPST.getFullYear()
+var $cell2 =_div(new RegExp($lsaveupdateval));
+
+
+var $tlupdate = "Last Updated: ";
+_assertExists($tlupdate + $cell2);
+
+}
+
+function testHistoryDate()
+{
+var $now = new Date();
+var $now2 = $now.getTime() + ($now.getTimezoneOffset() * 60000);
+
+// *******************************************************************************
+// WARNING: This timezone conversion doesn't take in consideration daylight saving
+// *******************************************************************************
+var $nowPST = new Date($now2 + (3600000*(-7)));
+
+var $updatemonth = $nowPST.getMonth()+1
+if ($updatemonth<10) {$updatemonth ='0' +$updatemonth;}
+
+var $updatedate =$nowPST.getDate();
+if ($updatedate<10) {$updatedate ='0' +$updatedate;}
+
+var $lsaveupdateval =$updatemonth+"/"+$updatedate+"/"+$nowPST.getFullYear()
+
+var $cell3 =_cell(new RegExp($lsaveupdateval));
+
+
+var $histupdate = "updated ";
+_assertExists($cell3 + $histupdate+ $commentval1a);
+
+}
+
+
+var $textUTC = "PST";
+
+
+//generate random episode title
+var $now = new Date();
+var $episodetest1 = "Test Episode";
+var $episodetest2 = $now.getDate()+$now.getTime();
+$episodenameval3 = $episodetest1+$episodetest2;
+
+
+//all variable for update fields
+var $licensorval3a = null;
+var $episodenumbval3a = null;
+var $episodenameval3a = null;
+var $networkval3a = null;
+ 
+
+//generate random update episode title
+var $now = new Date();
+var $episodenametest1 = "Update Test Episode";
+var $episodenametest2 = $now.getDate()+$now.getTime();
+$episodenameval3a = $episodenametest1+$episodenametest2;
+
+
+var $textepisode = "Episode ";
+var $cepisodenumbval3a	= $textepisode+$episodenumbval3a;	 
+
+var $linkdupeepisode = _link(11);
+
+var $tepisodetitleval ="Episode 1";
+
+var $cid = "Content ID: ";
+
+var $mediatypeepisode = "Media Type: TV Episode";
+var $runtimeval;
+
+
+var $ttlepisodeof;
+var $episodetotalof = "0 of ";
+var $headttlepisodeof;
+var $textEpisodeof ="Episodes ";
+var $textof =" of ";
+var $concEpisodeof;
+var $concEpisodeof1;
+
+var $eseasontitleval = "Season 10 ";		
+
+var $concattitle3;	
+
+var $divtvepisode = _div("Media Type: TV Episode");

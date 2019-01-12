@@ -1,0 +1,20 @@
+_include("../../MetadataCreate.sah");
+_include("../../Metadata_Variable.sah");
+_include("../../TitleInfo_Variable_Season.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Series.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+//verify when the TV series does not have 
+
+login("cms2user15","Password");
+
+searchTitle("Alice_: Season 1");
+
+publishContent("Alice");
+
+errorRec();
+

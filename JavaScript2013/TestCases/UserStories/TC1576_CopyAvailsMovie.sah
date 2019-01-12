@@ -1,0 +1,27 @@
+_include("../../Availability_Variable.sah");
+_include("../../AvailabilityPage.sah");
+_include("../../TitleInfo_Variable_Movie.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoMovie($movietitleval, "FOX");
+
+create();
+
+createFirstMovieAvails("EST","HD","Current","12.99");
+
+updateAvailRec();
+
+addAvailsicon();
+
+//verify all fields got copy except the calendar 
+verifyCloneFirstMovieAvails("EST","HD","Current","12.99")
+
+
+
+

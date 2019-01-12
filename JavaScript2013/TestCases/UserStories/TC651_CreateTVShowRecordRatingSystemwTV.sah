@@ -1,0 +1,15 @@
+_include("../../MetadataCreate.sah");
+_include("../../Metadata_Variable.sah");
+_include("../../TitleInfo_Variable_Season.sah");
+_include("../../TitleInfo_Variable_Episode.sah");
+_include("../../TitleInfo_Variable_Series.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoSeriesAll($seriestitleval,"WB","WB","2009","Motorsports","TV","TVMA","TestRatingReasonVal","TestCopyRight","TestProductioval","TestLongval");
+
+verifyTitleInfoSeriesAll($seriestitleval,"WB","WB","2009","Motorsports","TV","TVMA","TestRatingReasonVal","TestCopyRight","TestProductioval","TestLongval");

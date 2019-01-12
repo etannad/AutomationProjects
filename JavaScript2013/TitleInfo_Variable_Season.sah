@@ -1,0 +1,47 @@
+//http://rescmsqa-001.mgoint-naviqa.smf2.mobitv:9090/contents/1MV7ffcedb6a22f3d644a30b93ccdf11298/
+//all titleInfo UI variables
+
+$vbaddseason = _submit("Add Season");
+
+var $licensorval2 = null;
+
+var $seasonnumbval2 = null;
+
+var $episodenumbval2 = null;
+
+var $networkval2 = null;
+
+var $savedval2 = null;
+
+var $publishedval2 = null;
+
+var $ratingval2 = null;
+
+var $ratingsysval2 = null;
+
+var $casttypeval2a = null;
+
+var $casttypeval2b = null;
+var $contentID2;
+
+$vbupdatemetadata =_submit("Update Metadata");
+
+//all variable for update season
+var $licensorval2b = null;
+var $seasonnumbval2b;
+var $episodenumbval2b = null;
+var $networkval2b = null;
+
+var $textseason = "Season";
+			
+var $linkdupeseason = _link(11);
+
+var $mediatypeseason = "Media Type: TV Season";
+
+//var $linkheadseason = _link(6);
+var $linkheadseason = _link("Season 1");
+ 
+var $divtvseason = _div("Media Type: TV Season");
+
+
+

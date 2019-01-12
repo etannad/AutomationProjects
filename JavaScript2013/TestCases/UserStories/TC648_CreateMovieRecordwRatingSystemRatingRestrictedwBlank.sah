@@ -1,0 +1,10 @@
+_include("../../TitleInfo_Variable_Movie.sah");
+_include("../../TitleInfoCreate.sah");
+_include("../../OfferSearch_Variable.sah");
+_include("../../OfferSearch.sah");
+_include("../../LoginPage.sah");
+
+login("cms2user15","Password");
+
+createTitleInfoMovieAll($movietitleval, "SONY", "SONY","90","2010","3D", "Action sports", "","" ,"D", "Movieratingreason","Movie copy right","Movieprod", "Movieshortsynop","MovieLongsynop","MovieActor","MovieEST123", "MovieVOD123", "MovieEXT123","MovieUV123","MovieUV123","Movieeidr123","Moviealpha123");
+

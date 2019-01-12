@@ -1,0 +1,119 @@
+
+var $contentID;
+
+var $seriestitleval;
+
+var $licensorval1 = null;
+
+var $titlestatusval = null;
+
+var $savedval;
+
+var $ratingval = null;
+
+var $ratingsystemval = null;
+
+var $castval = null;
+
+var $mediatypeval = null;
+
+var $tvnetworkval = null;
+
+var $releaseyearval= null;
+
+var $publishedval = null;
+
+var $genreval = null;
+
+var $ratingreasonval = null;
+
+var $ratingcopyval = null;
+
+var $productionval = null;
+
+var $shortsynval = null;
+
+var $longsynval = null;
+
+var $historycell = null;
+
+$vlmetadata = _link("Metadata");
+
+$vbcreate = _submit("Create");
+
+var $verrorvalue;
+
+$vbsave= _submit("Update Content");
+
+
+var $tfsavevalue = "Status: New";
+
+var $tcreated ="created ";
+var $tcreatehist;
+
+
+var $mediatypeseries = "Media Type: TV Series";
+var $tseasontitleval = "Season 1 ";
+var $concattitle2 ;
+
+//generate random series title
+var $now = new Date();
+var $seriettest2 = $now.getDate()+$now.getTime();
+var $seriestest1 = "Test Series"
+$seriestitleval =  $seriestest1+$seriettest2;
+
+var $seriestitleval1a = null;
+var $licensorval1a = null;
+var $tvnetworkval1a = null;
+
+
+//generate random update series title
+var $now = new Date();
+var $seriettest2a = $now.getDate()+$now.getTime();
+var $seriestest1a = "Test Series New"
+$seriestitleval1a =  $seriestest1a+$seriettest2a;
+
+var $ratingadvisory;
+
+var $generevalnull;
+
+var $commentval1a = null;
+
+//generate random comment value
+var $now = new Date();
+var $commenttest2 = $now.getDate()+$now.getTime();
+//var $commenttest1 = "Test Series"
+var $commenttest1 = "Comment"
+$commentval1a = $commenttest2+$commenttest1;
+
+var $linkheadseries = _link(5);
+
+var $bdelete = _submit("Delete Content");
+
+var $linkrecord;
+
+var $mesgdel = "Successfully deleted ";
+
+var $stringmesgdel = $mesgdel + $seriestitleval;
+
+var $now = new Date();
+var $tcascseries2 = $now.getMilliseconds();
+var $tcascseries1 = "Test"
+$tcascseriesval1 = $tcascseries1 + $tcascseries2;
+
+var $textseasoncasc =": Season 1" 
+$tcascseriesnewval1 = $tcascseriesval1+$textseasoncasc;
+
+var $ts1append = $tcascseriesval1 + ": Season 1";
+var $ts2append = $tcascseriesval1 + ": Season 2";
+//var $ts3append = $tcascseriesval1 + ": Season 3";
+
+var $title;
+
+var $divtvseries  = _div("Media Type: TV Series");
+
+var $vbpublish =_submit("Publish Content");
+
+var $tpublish ="PUBLISHED";
+
+//var $tpublishm; 

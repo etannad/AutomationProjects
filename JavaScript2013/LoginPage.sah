@@ -1,0 +1,48 @@
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+
+
+
+function login($vtusername, $vtpassword)
+{
+		_stopOnError();
+		try
+		{
+		
+		   	if(!_exists($vblogin)) 
+			{
+		 		_wait(5000);
+			}
+		
+			else if(_exists($vblogin))
+			{ 
+				_setValue(_textbox("username"),$vtusername);
+				_wait(1000);
+
+				_setValue(_password("password"),$vtpassword);
+				_wait(1000);
+
+				$getusername1 =_getValue(_textbox("username"));
+				_click($vblogin);
+				_wait(2000);
+			}
+		}
+			
+		catch(e)
+		{
+			_logException(e);
+			
+		}
+		_continueOnError();
+}
+
+
+function logout()
+{
+
+	_click(_link(new RegExp($getusername1)));
+
+}
+
+
+

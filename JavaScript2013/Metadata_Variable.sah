@@ -1,0 +1,120 @@
+//all metadata UI variables
+
+$vtgenres = _textbox("genres");
+$vtrating = _textbox("rating");
+
+$vtratingsys =_select("rating_system");
+$vtratingreason = _textbox("rating_reason");
+$vtcopyright = _textbox("copyright");
+$vtprodcomp = _textbox("production_companies");
+$vtshortsyn = _textarea("short_synopsis");
+$vtlongsyn = _textarea("long_synopsis");
+//$vtcasttype = _textbox("cast_type");
+$vtnames = _textbox("names");
+
+
+var $actor1val;
+var $director1val;
+var $producer1val;
+var $writer1val;
+
+var $thirdidval;
+var $vodexidval;
+
+//generate random actor 1 
+var $now = new Date();
+var $actor1 = "TestActorI";
+var $actor2 = $now.getDate()+$now.getMilliseconds();
+$actor1val = $actor1+ $actor2;
+
+//generate random director 1 
+var $now = new Date();
+var $director1 = "TestDirectorI";
+var $director2 = $now.getDate()+$now.getMilliseconds();
+$director1val = $director1+ $director2;
+
+//generate random producer 1 
+var $now = new Date();
+var $producer1 = "TestProducerI";
+var $producer2 = $now.getDate()+$now.getMilliseconds();
+$producer1val = $producer1+ $producer2;
+
+//generate random writer 1 
+var $now = new Date();
+var $writer1 = "TestWriterI";
+var $writer2 = $now.getDate()+$now.getMilliseconds();
+$writer1val = $writer1+ $writer2;
+
+//generate random third ID
+var $now = new Date();
+var $thirdid1 = "Random 12";
+var $thirdid2 = $now.getDate()+$now.getMilliseconds();
+$thirdidval = $thirdid1+ $thirdid2;
+
+//generate vod external ID
+var $now = new Date();
+var $vodexid1 = "VOD 12";
+var $vodexid2 = $now.getDate()+$now.getMilliseconds();
+$vodexidval = $vodexid1+ $vodexid2;
+
+//generate est external ID
+var $now = new Date();
+var $estexid1 = "EST 12";
+var $estexid2 = $now.getDate()+$now.getMilliseconds();
+$estexidval = $estexid1+ $estexid2;
+
+//generate  external ID
+var $now = new Date();
+var $exid1 = "External 12";
+var $exid2 = $now.getDate()+$now.getMilliseconds();
+$exidval = $exid1+ $exid2;
+
+//generate  UV ID
+var $now = new Date();
+var $uvid1 = "UV 12";
+var $uvid2 = $now.getDate()+$now.getMilliseconds();
+$uvidval = $uvid1+ $uvid2;
+
+//generate  EIDR ID
+var $now = new Date();
+var $eidrid1 = "EIDR 12";
+var $eidrid2 = $now.getDate()+$now.getMilliseconds();
+$eidridval = $eidrid1+ $eidrid2;
+
+//generate  ALPHA ID
+var $now = new Date();
+var $alphaid1 = "ALPHA 12";
+var $alphaid2 = $now.getDate()+$now.getMilliseconds();
+$alphaidval = $alphaid1+ $alphaid2;
+
+//generate  ALID ID
+var $now = new Date();
+var $alidid1 = "ALID 12";
+var $alidid2 = $now.getDate()+$now.getMilliseconds();
+$alidval = $alidid1+ $alidid2;
+
+//generate random actor 2 
+var $now = new Date();
+var $actorb1 = "TestActorII";
+var $actorb2 = $now.getDate()+$now.getMilliseconds();
+$actor2val = $actorb1+ $actorb2;
+
+//generate random director 2 
+var $now = new Date();
+var $directorb1 = "TestDirectorII";
+var $directorb2 = $now.getDate()+$now.getMilliseconds();
+$director2val = $directorb1+ $directorb2;
+
+//generate random producer 2 
+var $now = new Date();
+var $producerb1 = "TestProducerII";
+var $producerb2 = $now.getDate()+$now.getMilliseconds();
+$producer2val = $producerb1+ $producerb2;
+
+//generate random writer 2 
+var $now = new Date();
+var $writerb1 = "TestWriterII";
+var $writerb2 = $now.getDate()+$now.getMilliseconds();
+$writer2val = $writerb1+ $writerb2;
+
+

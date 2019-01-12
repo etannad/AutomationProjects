@@ -1,0 +1,491 @@
+_include("OfferSearch_Variable.sah");
+_include("OfferSearch.sah");
+_include("TrackingNewSource_Variable.sah");
+
+//_assertEqual("video", _getValue(_textbox("source_order_pair[source_type]")));
+//_assertEqual("trailer", _getValue(_textbox("source_order_pair[source_type]")));
+//_assertEqual("captions", _getValue(_textbox("source_order_pair[source_type]")));
+
+
+// *******************************************************************************
+// Set new resource on ASSET Type 
+// *******************************************************************************
+
+function trackingTab()
+{
+	_click($trackingtab);
+}
+
+function createTrackingReq()
+{
+	_click($bcreatetrc);
+}
+
+function updateTrackingReq()
+{
+  	_click($bupdatetrc);
+}
+
+function setNotRequestAsset($sourcetype)
+{
+ 	_stopOnError();
+		try
+		{
+			if($sourcetype == "video Req")
+			{
+			 	_click($borderpairvid1);
+			}
+			if($sourcetype == "trailer Req")
+			{
+				 _click($borderpairtrail2);
+			}
+			 
+			if($sourcetype == "captions Req")
+			{
+				_click($borderpaircapt3);
+			}
+			 
+			 if(!_exists($bcreatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();		
+			//_assertEqual("video", _getValue(_textbox("studio_source[source_type]")));	
+			setAssetSourceID($sourceval3);
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function verifyBadgeNotSet($sourcetype)
+{
+
+ 	_stopOnError();
+		try
+		{
+			 if(!_exists($tsourcetype))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			
+			if($sourcetype == "video Req")
+			{
+				_assertExists($bfnotrequest);
+				_assertExists($bscnotrequest);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+				_assertExists($btnotrequest);
+				_assertExists($bftnotrequest);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				_assertExists($bftnotrequest);
+				_assertExists($bfinotrequest);
+			}
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function editAssetRequest($setdatepicker,$month,$day) 
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function editWORequest($setdatepicker,$month,$day) 
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+} 
+
+
+function verifyBadgeRequestedWOEmpty($sourcetype)
+{
+	_stopOnError();
+		try
+		{
+			 if(!_exists($tsourcetype))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			
+			if($sourcetype == "video Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+			
+}
+
+function verifyBadgeReqWOToBeStarted($sourcetype)
+{
+	_stopOnError();
+		try
+		{
+			 if(!_exists($tsourcetype))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			
+			if($sourcetype == "video Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				//var $bfwarning = _span("badge badge-warning");
+				//var $bscwarning = _span("badge badge-warning[1]");
+				_assertExists($bfwarning);
+				_assertExists($bscwarning);
+			}
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function editAssetReqToDelvd($setdatepicker,$month,$day) 
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function editWODelReqDate($setdatepicker,$month,$day)
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function verifyBadgeAssetDelWOTransfer($sourcetype)
+{
+	_stopOnError();
+		try
+		{
+			 if(!_exists($tsourcetype))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			
+			if($sourcetype == "video Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bfwarning = _span("badge badge-warning");
+				_assertExists($bfsuccess);
+				_assertExists($bfwarning);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bfwarning = _span("badge badge-warning");
+				_assertExists($bfsuccess);
+				_assertExists($bfwarning);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bfwarning = _span("badge badge-warning");
+				_assertExists($bfsuccess);
+				_assertExists($bfwarning);
+			}
+				
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+
+function editAssetBilled($setdatepicker,$month,$day)
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+function editWOBilled($setdatepicker,$month,$day)
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+
+function editAssetPay($setdatepicker,$month,$day)
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+function editWOPay($setdatepicker,$month,$day)
+{
+	_stopOnError();
+		try
+		{
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			setDatePicker($setdatepicker,$month,$day);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+}
+
+
+
+function verifyBadgeAssetCompWOComp($sourcetype)
+{
+	_stopOnError();
+		try
+		{
+			 if(!_exists($tsourcetype))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();	
+			
+				
+			if($sourcetype == "video Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bscsuccess = _span("badge badge-success[1]");
+
+				_assertExists($bfsuccess);
+				_assertExists($bscsuccess);
+			}
+			
+			if($sourcetype == "trailer Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bscsuccess = _span("badge badge-success[1]");
+
+				_assertExists($bfsuccess);
+				_assertExists($bscsuccess);
+			}
+			
+			if($sourcetype == "captions Req")
+			{
+				//var $bfsuccess = _span("badge badge-success");
+				//var $bscsuccess = _span("badge badge-success[1]");
+
+				_assertExists($bfsuccess);
+				_assertExists($bscsuccess);
+			}	
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+
+}
+
+function setCommentTrackingTab()
+{
+		
+		_stopOnError();
+		try
+		{
+		
+			if(!_exists($bupdatetrc))
+			{
+		 		_takeSnapShots(true);
+			}
+			_continueOnError();
+			
+			_setValue(_textbox("source_order_pair[comment_string]"), $commentval1a);
+			
+		}//end of try
+			
+		catch(e)
+		{
+			_logException(e);
+		}
+		_continueOnError();
+			
+}
+
+
+function verifyCommentTrackingTab($commentval1a)
+{
+	testHistoryDate();	
+}
